@@ -152,8 +152,9 @@ export default function Footer() {
               XYZ <span style={{ color: '#c8973a' }}>Investments</span>
             </div>
             <p style={{ fontSize: 12, lineHeight: 1.6, maxWidth: 420, color: '#6b7c93' }}>
-              All investing is subject to risk, including the possible loss of the money you invest.
-              XYZ Investments is a registered investment adviser. Past performance is no guarantee of future results.
+              India's Leading Multi-Asset Firm. We educate, guide, and empower our clients
+              toward lasting financial stability — for this generation and all generations to come.
+              All investing is subject to risk.
             </p>
           </div>
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center', marginTop: 4 }}>

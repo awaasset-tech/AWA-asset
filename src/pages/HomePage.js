@@ -404,10 +404,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 PRINCIPLES */}
-      <section style={{ padding: '72px 0', background: '#fff' }}>
+      {/* MISSION STRIP */}
+      <section style={{
+        background: 'linear-gradient(135deg, #0a1628 0%, #1d3461 100%)',
+        padding: '56px 32px',
+      }}>
+        <div className="container" style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 32,
+        }}>
+          <div style={{ maxWidth: 580 }}>
+            <p style={{
+              fontSize: 11, fontWeight: 700,
+              letterSpacing: '1.5px', textTransform: 'uppercase',
+              color: '#e5b55a', marginBottom: 12,
+            }}>Our Mission</p>
+            <h2 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: '1.9rem',
+              color: '#fff',
+              lineHeight: 1.3,
+              marginBottom: 14,
+            }}>
+              Making financial education a<br />
+              <span style={{ color: '#e5b55a' }}>primary focus in our community</span>
+            </h2>
+            <p style={{ color: '#9aaec4', fontSize: 14, lineHeight: 1.75 }}>
+              To empower this generation and generations to come with financial stability —
+              and to live in a community where economic enlightenment empowers every person.
+            </p>
+          </div>
+          <Link to="/about" style={{
+            background: '#c8973a', color: '#fff',
+            padding: '13px 28px', borderRadius: 4,
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 700, fontSize: 14,
+            textDecoration: 'none', flexShrink: 0,
+            transition: 'background 0.2s',
+          }}
+            onMouseEnter={e => e.currentTarget.style.background = '#e5b55a'}
+            onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
+          >
+            Our story →
+          </Link>
+        </div>
+      </section>
+
+      {/* GROWTH STRATEGY — replaces 4 Principles */}
+      <section style={{ padding: '80px 0', background: '#fff' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
             <p style={{
               fontSize: 12, fontWeight: 700,
               letterSpacing: '1.2px', textTransform: 'uppercase',
@@ -417,31 +466,76 @@ export default function HomePage() {
               fontFamily: 'Playfair Display, serif',
               fontSize: '2.2rem',
               color: '#0a1628',
-            }}>The 4 principles of smart investing</h2>
+              marginBottom: 14,
+            }}>
+              Designing Growth Strategy<br />for your money
+            </h2>
+            <p style={{ color: '#6b7280', fontSize: 15, maxWidth: 500, margin: '0 auto' }}>
+              We believe every rupee you earn deserves a plan. Here's how we make that happen.
+            </p>
           </div>
+
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 28,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 24,
           }}>
             {[
-              { n: '01', title: 'Goals', icon: '🎯', desc: 'Having clear, appropriate investment goals is the foundation of everything. Start with the end in mind.' },
-              { n: '02', title: 'Balance', icon: '⚖️', desc: 'A well-balanced portfolio helps manage risk while keeping you on track for your long-term goals.' },
-              { n: '03', title: 'Costs', icon: '💲', desc: 'Keeping costs low is one of the few controllable factors in investing. Every basis point matters.' },
-              { n: '04', title: 'Discipline', icon: '🧘', desc: 'Staying the course through market ups and downs is essential to achieving long-term success.' },
-            ].map(p => (
-              <div key={p.n} style={{
-                borderTop: '3px solid #c8973a',
-                padding: '28px 24px',
+              {
+                icon: '🛡️',
+                step: '01',
+                title: 'We secure your life',
+                desc: 'So that you can live happily with ease and grace — free from the anxiety of financial uncertainty.',
+                color: '#0a6b45',
+              },
+              {
+                icon: '🎓',
+                step: '02',
+                title: 'We give you the right solution',
+                desc: 'Creating sustainability so you can give your children the best education, retire early, and save for the future.',
+                color: '#0a1628',
+              },
+              {
+                icon: '📈',
+                step: '03',
+                title: 'We help you upgrade your lifestyle',
+                desc: 'Scale up and reclaim your time and money — to do the things you\'ve always wanted to do, on your terms.',
+                color: '#7b3f00',
+              },
+            ].map((p, i) => (
+              <div key={i} style={{
+                borderTop: `3px solid #c8973a`,
+                padding: '32px 28px',
                 background: '#f8f5f0',
-                borderRadius: '0 0 10px 10px',
-              }}>
-                <div style={{ fontSize: 28, marginBottom: 12 }}>{p.icon}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#c8973a', letterSpacing: '1px', marginBottom: 6 }}>{p.n}</div>
-                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', color: '#0a1628', marginBottom: 10 }}>{p.title}</h3>
-                <p style={{ color: '#6b7280', fontSize: 13, lineHeight: 1.65 }}>{p.desc}</p>
+                borderRadius: '0 0 12px 12px',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(10,22,40,0.1)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+              >
+                <div style={{ fontSize: 32, marginBottom: 14 }}>{p.icon}</div>
+                <div style={{
+                  fontSize: 11, fontWeight: 700,
+                  color: '#c8973a', letterSpacing: '1px',
+                  textTransform: 'uppercase', marginBottom: 8,
+                }}>{p.step}</div>
+                <h3 style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '1.2rem', color: '#0a1628', marginBottom: 12,
+                }}>{p.title}</h3>
+                <p style={{ color: '#6b7280', fontSize: 14, lineHeight: 1.7 }}>{p.desc}</p>
               </div>
             ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 40 }}>
+            <Link to="/about" style={{
+              fontSize: 14, fontWeight: 700,
+              color: '#c8973a', textDecoration: 'none',
+              borderBottom: '2px solid #c8973a', paddingBottom: 2,
+            }}>
+              Learn more about our approach →
+            </Link>
           </div>
         </div>
       </section>
