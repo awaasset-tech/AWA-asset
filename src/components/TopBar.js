@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const topLinks = [
@@ -8,14 +8,25 @@ const topLinks = [
 ];
 
 export default function TopBar() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  if (isMobile) return null; // hide entirely on small screens
+
   return (
     <div style={{
       background: '#0a1628',
-      padding: '7px 32px',
+      padding: '6px 20px',
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      gap: '24px',
+      gap: '20px',
+      flexWrap: 'wrap',
     }}>
       {topLinks.map(l => (
         <Link key={l.to} to={l.to} style={{
@@ -25,6 +36,7 @@ export default function TopBar() {
           letterSpacing: '0.2px',
           transition: 'color 0.2s',
           textDecoration: 'none',
+          whiteSpace: 'nowrap',
         }}
           onMouseEnter={e => e.target.style.color = '#e5b55a'}
           onMouseLeave={e => e.target.style.color = '#9aaec4'}

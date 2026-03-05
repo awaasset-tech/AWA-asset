@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   {
@@ -43,13 +43,53 @@ const navItems = [
   },
 ];
 
+function HamburgerIcon({ open }) {
+  return (
+    <div style={{ width: 24, height: 18, position: 'relative' }}>
+      {[0, 8, 16].map((top, i) => (
+        <span key={i} style={{
+          display: 'block',
+          position: 'absolute',
+          height: 2,
+          background: '#0a1628',
+          borderRadius: 2,
+          top,
+          left: 0,
+          right: 0,
+          transformOrigin: 'center',
+          transition: 'all 0.25s ease',
+          width: open && i === 1 ? 0 : '100%',
+          opacity: open && i === 1 ? 0 : 1,
+          transform: open
+            ? i === 0 ? 'translateY(9px) rotate(45deg)'
+            : i === 2 ? 'translateY(-9px) rotate(-45deg)'
+            : 'none'
+            : 'none',
+        }} />
+      ))}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [menuHovered, setMenuHovered] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
   const navRef = useRef(null);
-  // eslint-disable-next-line no-unused-vars
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileExpanded(null);
+    setActiveMenu(null);
+  }, [location]);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 900);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     function handleClick(e) {
@@ -61,179 +101,277 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
   return (
-    <header style={{
-      background: '#fff',
-      borderBottom: '1px solid #ddd8d0',
-      position: 'sticky',
-      top: 0,
-      zIndex: 200,
-      boxShadow: '0 2px 16px rgba(10,22,40,0.07)',
-    }}>
-      <div style={{
-        maxWidth: 1180,
-        margin: '0 auto',
-        padding: '0 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: 70,
-      }} ref={navRef}>
+    <>
+      <header style={{
+        background: '#fff',
+        borderBottom: '1px solid #ddd8d0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 200,
+        boxShadow: '0 2px 16px rgba(10,22,40,0.07)',
+      }}>
+        <div style={{
+          maxWidth: 1180,
+          margin: '0 auto',
+          padding: '0 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: 66,
+        }} ref={navRef}>
 
-        {/* Logo */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 38, height: 38,
-            background: '#0a1628',
-            borderRadius: 4,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
-          }}>
-            <span style={{ color: '#e5b55a', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 20 }}>X</span>
-          </div>
-          <span style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 22,
-            fontWeight: 700,
-            color: '#0a1628',
-            letterSpacing: '-0.3px',
-          }}>
-            XYZ <span style={{ color: '#c8973a' }}>Investments</span>
-          </span>
-        </Link>
-
-        {/* Nav Items */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {navItems.map((item) => (
-            <div
-              key={item.label}
-              style={{ position: 'relative' }}
-              onMouseEnter={() => setActiveMenu(item.label)}
-              onMouseLeave={() => {
-                setTimeout(() => setActiveMenu(prev => prev === item.label ? null : prev), 100);
-              }}
-            >
-              <button style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                fontFamily: 'DM Sans, sans-serif',
-                fontSize: 14,
-                fontWeight: 500,
-                color: activeMenu === item.label ? '#c8973a' : '#0a1628',
-                padding: '8px 14px',
-                borderRadius: 4,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
-                transition: 'color 0.2s',
-              }}>
-                {item.label}
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{
-                  transform: activeMenu === item.label ? 'rotate(180deg)' : 'rotate(0)',
-                  transition: 'transform 0.2s',
-                }}>
-                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-
-              {/* Dropdown */}
-              {activeMenu === item.label && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  background: '#fff',
-                  border: '1px solid #ddd8d0',
-                  borderRadius: 8,
-                  boxShadow: '0 12px 40px rgba(10,22,40,0.15)',
-                  minWidth: 220,
-                  padding: '8px 0',
-                  animation: 'fadeUp 0.15s ease',
-                  zIndex: 300,
-                }}
-                  onMouseEnter={() => setActiveMenu(item.label)}
-                  onMouseLeave={() => setActiveMenu(null)}
-                >
-                  {item.children.map(child => (
-                    <Link
-                      key={child.to}
-                      to={child.to}
-                      onClick={() => setActiveMenu(null)}
-                      style={{
-                        display: 'block',
-                        padding: '10px 20px',
-                        fontSize: 14,
-                        color: '#0a1628',
-                        fontWeight: 400,
-                        transition: 'background 0.15s, color 0.15s',
-                        textDecoration: 'none',
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+          {/* Logo */}
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+            <div style={{
+              width: 36, height: 36, background: '#0a1628', borderRadius: 4,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ color: '#e5b55a', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 19 }}>X</span>
             </div>
-          ))}
+            <span style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: isMobile ? 17 : 21,
+              fontWeight: 700, color: '#0a1628',
+              letterSpacing: '-0.3px', whiteSpace: 'nowrap',
+            }}>
+              XYZ <span style={{ color: '#c8973a' }}>Finance</span>
+            </span>
+          </Link>
 
-          {/* Resources link */}
-          <Link to="/resources" style={{
-            fontFamily: 'DM Sans, sans-serif',
-            fontSize: 14,
-            fontWeight: 500,
-            color: '#0a1628',
-            padding: '8px 14px',
-            borderRadius: 4,
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-          }}
-            onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
-            onMouseLeave={e => e.currentTarget.style.color = '#0a1628'}
-          >
-            Resources & education
-          </Link>
-        </nav>
+          {/* Desktop nav */}
+          {!isMobile && (
+            <nav style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {navItems.map((item) => (
+                <div key={item.label} style={{ position: 'relative' }}
+                  onMouseEnter={() => setActiveMenu(item.label)}
+                  onMouseLeave={() => setTimeout(() => setActiveMenu(p => p === item.label ? null : p), 100)}
+                >
+                  <button style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 500,
+                    color: activeMenu === item.label ? '#c8973a' : '#0a1628',
+                    padding: '8px 11px', borderRadius: 4,
+                    display: 'flex', alignItems: 'center', gap: 4,
+                    transition: 'color 0.2s', whiteSpace: 'nowrap',
+                  }}>
+                    {item.label}
+                    <svg width="9" height="6" viewBox="0 0 10 6" fill="none" style={{
+                      transform: activeMenu === item.label ? 'rotate(180deg)' : 'none',
+                      transition: 'transform 0.2s', flexShrink: 0,
+                    }}>
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
 
-        {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-          <Link to="/login" style={{
-            fontFamily: 'DM Sans, sans-serif',
-            fontSize: 14,
-            fontWeight: 600,
-            color: '#0a1628',
-            padding: '8px 18px',
-            border: '1.5px solid #0a1628',
-            borderRadius: 4,
-            textDecoration: 'none',
-            transition: 'all 0.2s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#0a1628'; e.currentTarget.style.color = '#fff'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0a1628'; }}
-          >
-            Log in
-          </Link>
-          <Link to="/open-account" style={{
-            fontFamily: 'DM Sans, sans-serif',
-            fontSize: 14,
-            fontWeight: 600,
-            color: '#fff',
-            padding: '9px 20px',
-            background: '#c8973a',
-            borderRadius: 4,
-            textDecoration: 'none',
-            transition: 'background 0.2s',
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
-            onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
-          >
-            Open an account
-          </Link>
+                  {activeMenu === item.label && (
+                    <div style={{
+                      position: 'absolute', top: '100%', left: 0,
+                      background: '#fff', border: '1px solid #ddd8d0',
+                      borderRadius: 8, boxShadow: '0 12px 40px rgba(10,22,40,0.15)',
+                      minWidth: 210, padding: '8px 0',
+                      animation: 'fadeUp 0.15s ease', zIndex: 300,
+                    }}
+                      onMouseEnter={() => setActiveMenu(item.label)}
+                      onMouseLeave={() => setActiveMenu(null)}
+                    >
+                      {item.children.map(child => (
+                        <Link key={child.to} to={child.to} onClick={() => setActiveMenu(null)}
+                          style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
+                          onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <Link to="/resources" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 500,
+                color: '#0a1628', padding: '8px 11px', borderRadius: 4,
+                textDecoration: 'none', whiteSpace: 'nowrap',
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+                onMouseLeave={e => e.currentTarget.style.color = '#0a1628'}
+              >
+                Resources
+              </Link>
+            </nav>
+          )}
+
+          {/* Desktop CTAs */}
+          {!isMobile && (
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+              <Link to="/login" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
+                color: '#0a1628', padding: '7px 15px',
+                border: '1.5px solid #0a1628', borderRadius: 4,
+                textDecoration: 'none', transition: 'all 0.2s', whiteSpace: 'nowrap',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#0a1628'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0a1628'; }}
+              >
+                Log in
+              </Link>
+              <Link to="/open-account" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
+                color: '#fff', padding: '8px 15px',
+                background: '#c8973a', borderRadius: 4,
+                textDecoration: 'none', transition: 'background 0.2s', whiteSpace: 'nowrap',
+              }}
+                onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
+                onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
+              >
+                Open account
+              </Link>
+            </div>
+          )}
+
+          {/* Mobile: Log in + Hamburger */}
+          {isMobile && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Link to="/login" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
+                color: '#0a1628', padding: '7px 14px',
+                border: '1.5px solid #0a1628', borderRadius: 4,
+                textDecoration: 'none', whiteSpace: 'nowrap',
+              }}>
+                Log in
+              </Link>
+              <button
+                onClick={() => setMobileOpen(o => !o)}
+                style={{ background: 'none', border: 'none', padding: '4px 2px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                aria-label="Toggle menu"
+              >
+                <HamburgerIcon open={mobileOpen} />
+              </button>
+            </div>
+          )}
+
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile drawer */}
+      {isMobile && (
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 190,
+              background: 'rgba(10,22,40,0.45)',
+              opacity: mobileOpen ? 1 : 0,
+              pointerEvents: mobileOpen ? 'auto' : 'none',
+              transition: 'opacity 0.3s ease',
+            }}
+          />
+
+          {/* Slide-in panel */}
+          <div style={{
+            position: 'fixed',
+            top: 66, right: 0, bottom: 0,
+            width: 'min(300px, 85vw)',
+            background: '#fff',
+            zIndex: 195,
+            overflowY: 'auto',
+            transform: mobileOpen ? 'translateX(0)' : 'translateX(105%)',
+            transition: 'transform 0.3s ease',
+            boxShadow: '-8px 0 32px rgba(10,22,40,0.18)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+
+            <div style={{ flex: 1 }}>
+              {navItems.map(item => (
+                <div key={item.label} style={{ borderBottom: '1px solid #f0ece6' }}>
+                  <button
+                    onClick={() => setMobileExpanded(e => e === item.label ? null : item.label)}
+                    style={{
+                      width: '100%', background: 'none', border: 'none',
+                      padding: '16px 22px',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      cursor: 'pointer',
+                      fontFamily: 'DM Sans, sans-serif', fontSize: 15, fontWeight: 600,
+                      color: mobileExpanded === item.label ? '#c8973a' : '#0a1628',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {item.label}
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{
+                      transform: mobileExpanded === item.label ? 'rotate(180deg)' : 'none',
+                      transition: 'transform 0.22s', flexShrink: 0,
+                    }}>
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+
+                  <div style={{
+                    maxHeight: mobileExpanded === item.label ? 500 : 0,
+                    overflow: 'hidden',
+                    transition: 'max-height 0.3s ease',
+                    background: '#faf7f3',
+                  }}>
+                    {item.children.map(child => (
+                      <Link key={child.to} to={child.to}
+                        style={{
+                          display: 'block', padding: '12px 22px 12px 36px',
+                          fontSize: 14, color: '#4a5568',
+                          textDecoration: 'none',
+                          borderBottom: '1px solid #ede9e3',
+                          fontFamily: 'DM Sans, sans-serif',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+                        onMouseLeave={e => e.currentTarget.style.color = '#4a5568'}
+                      >
+                        → {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              <Link to="/resources"
+                style={{
+                  display: 'block', padding: '16px 22px',
+                  fontFamily: 'DM Sans, sans-serif', fontSize: 15, fontWeight: 600,
+                  color: '#0a1628', textDecoration: 'none',
+                  borderBottom: '1px solid #f0ece6',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+                onMouseLeave={e => e.currentTarget.style.color = '#0a1628'}
+              >
+                Resources & education
+              </Link>
+            </div>
+
+            {/* Bottom CTA */}
+            <div style={{ padding: '20px 22px', borderTop: '1px solid #ddd8d0', background: '#f8f5f0' }}>
+              <Link to="/open-account" style={{
+                display: 'block',
+                background: '#c8973a', color: '#fff',
+                padding: '14px', borderRadius: 6,
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 700, fontSize: 15,
+                textAlign: 'center', textDecoration: 'none',
+                transition: 'background 0.2s',
+              }}
+                onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
+                onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
+              >
+                Open an account
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
