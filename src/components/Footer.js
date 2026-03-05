@@ -149,7 +149,7 @@ export default function Footer() {
               color: '#fff',
               marginBottom: 8,
             }}>
-              AWA-asset <span style={{ color: '#c8973a' }}>Investments</span>
+              AWA-asset <span style={{ color: '#c8973a' }}>Finance</span>
             </div>
             <p style={{ fontSize: 12, lineHeight: 1.6, maxWidth: 420, color: '#6b7c93' }}>
               India's Leading Multi-Asset Firm. We educate, guide, and empower our clients
@@ -173,7 +173,7 @@ export default function Footer() {
             ))}
           </div>
           <p style={{ width: '100%', fontSize: 11, color: '#4a5568', marginTop: 8 }}>
-            © {new Date().getFullYear()} AWA-asset Investments. All rights reserved.
+            © {new Date().getFullYear()} AWA-asset Finance. All rights reserved.
           </p>
         </div>
       </div>

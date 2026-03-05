@@ -214,7 +214,7 @@ export default function HomePage() {
               title="Live in the moment"
               desc="We'll help you save so you don't have to sweat surprise expenses or short-term goals."
               cta="Cash management"
-              to="/products/cash-investments"
+              to="/products/cash-Finance"
             />
             <GoalCard
               emoji="📋"
@@ -605,7 +605,7 @@ export default function HomePage() {
                 Trusted by investors. Built on principles.
               </div>
               <p style={{ color: '#6b7280', fontSize: 13 }}>
-                AWA-asset Investments is committed to low costs, transparency, and putting investors first — always.
+                AWA-asset Finance is committed to low costs, transparency, and putting investors first — always.
               </p>
             </div>
           </div>

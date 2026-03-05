@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const slides = [
   {
     headline: 'Grow your wealth with confidence',
-    sub: 'AWA-asset Investments offers low-cost funds, smart tools, and trusted advice so your money works as hard as you do.',
+    sub: 'AWA-asset Finance offers low-cost funds, smart tools, and trusted advice so your money works as hard as you do.',
     cta: 'Open an account',
     ctaTo: '/open-account',
     cta2: 'Explore funds',
