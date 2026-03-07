@@ -214,7 +214,7 @@ export default function HomePage() {
               title="Live in the moment"
               desc="We'll help you save so you don't have to sweat surprise expenses or short-term goals."
               cta="Cash management"
-              to="/products/cash-Finance"
+              to="/products/cash-AWA Asset"
             />
             <GoalCard
               emoji="📋"

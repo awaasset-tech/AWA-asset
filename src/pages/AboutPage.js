@@ -159,7 +159,7 @@ export default function AboutPage() {
             fontSize: 12, fontWeight: 700,
             letterSpacing: '1.5px', textTransform: 'uppercase',
             color: '#e5b55a', marginBottom: 16,
-          }}>About AWA-asset Finance</p>
+          }}>About AWA Asset</p>
 
           <h1 style={{
             fontFamily: 'Playfair Display, serif',

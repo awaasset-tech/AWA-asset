@@ -33,9 +33,9 @@ const navItems = [
     ],
   },
   {
-    label: 'About AWA-asset',
+    label: 'About AWA Asset',
     children: [
-      { label: 'Why choose AWA-asset', to: '/about' },
+      { label: 'Why choose AWA Asset', to: '/about' },
       { label: 'Our principles', to: '/about/principles' },
       { label: 'News & research', to: '/about/news' },
       { label: 'Careers', to: '/about/careers' },
@@ -140,7 +140,7 @@ export default function Navbar() {
               fontWeight: 700, color: '#0a1628',
               letterSpacing: '-0.3px', whiteSpace: 'nowrap',
             }}>
-              AWA-asset <span style={{ color: '#c8973a' }}>Finance</span>
+              AWA <span style={{ color: '#c8973a' }}>Asset</span>
             </span>
           </Link>
 

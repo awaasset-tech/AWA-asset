@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const slides = [
   {
     headline: 'Grow your wealth with confidence',
-    sub: 'AWA-asset Finance offers low-cost funds, smart tools, and trusted advice so your money works as hard as you do.',
+    sub: 'AWA Asset offers low-cost funds, smart tools, and trusted advice so your money works as hard as you do.',
     cta: 'Open an account',
     ctaTo: '/open-account',
     cta2: 'Explore funds',
@@ -29,7 +29,7 @@ const slides = [
     sub: 'Our latest expense ratio reductions are delivering real savings to investors — because every basis point matters.',
     cta: 'See our funds',
     ctaTo: '/products/mutual-funds',
-    cta2: 'Why AWA-asset?',
+    cta2: 'Why AWA Asset?',
     cta2To: '/about',
     bg: 'linear-gradient(135deg, #1a1428 0%, #2d1f4a 55%, #3d2d6b 100%)',
     accent: '#bb86fc',
