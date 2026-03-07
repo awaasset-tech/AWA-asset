@@ -140,7 +140,7 @@ export default function Navbar() {
               fontWeight: 700, color: '#0a1628',
               letterSpacing: '-0.3px', whiteSpace: 'nowrap',
             }}>
-              AWA <span style={{ color: '#c8973a' }}>Asset</span>
+              AWA <span style={{ color: '#c8973a' }}>ASSET</span>
             </span>
           </Link>
 
