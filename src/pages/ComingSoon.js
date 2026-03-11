@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+// 1. Define your list of dogs here
+// Make sure the 'src' perfectly matches the filenames in public/images/comingsoon/
+const DOG_LIST = [
+  { name: 'Cannoli', src: '/images/comingsoon/cannoli.png' },
+  { name: 'Barkley', src: '/images/comingsoon/barkley.png' },
+  { name: 'Rufus',   src: '/images/comingsoon/theo.png' },
+  // Add as many dogs as you want here!
+];
+
 export default function ComingSoon() {
+  // State to hold the currently selected dog
+  const [currentDog, setCurrentDog] = useState(DOG_LIST[0]);
+
+  // 2. Randomize the dog when the page loads
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * DOG_LIST.length);
+    setCurrentDog(DOG_LIST[randomIndex]);
+  }, []); // The empty array [] means this runs exactly once when the page opens
+
   return (
     <div style={{
       display: 'flex',
@@ -9,17 +27,17 @@ export default function ComingSoon() {
       alignItems: 'center',
       minHeight: '80vh',
       backgroundColor: '#ffffff',
-      fontFamily: '"Amazon Ember", Arial, sans-serif', // Closest standard font
+      fontFamily: '"Amazon Ember", Arial, sans-serif',
       padding: '50px 20px',
       textAlign: 'center'
     }}>
 
-      {/* --- 1. TOP TEXT SECTION --- */}
+      {/* --- TOP TEXT SECTION --- */}
       <div style={{ marginBottom: '30px' }}>
         <h1 style={{
           fontSize: '90px',
           fontWeight: 300, 
-          color: '#767676', // Amazon's specific gray
+          color: '#767676', 
           margin: '0',
           lineHeight: '1',
           letterSpacing: '-2px'
@@ -40,8 +58,7 @@ export default function ComingSoon() {
         </p>
       </div>
 
-      {/* --- 2. IMAGE & CAPTION SECTION --- */}
-      {/* alignItems: 'flex-end' makes sure the caption sticks to the bottom paws of the dog */}
+      {/* --- IMAGE & CAPTION SECTION --- */}
       <div style={{
         display: 'flex',
         alignItems: 'flex-end', 
@@ -49,12 +66,12 @@ export default function ComingSoon() {
         marginTop: '20px'
       }}>
         
-        {/* Replace this src with the path to your actual photo */}
+        {/* Render the randomly selected dog image */}
         <img 
-          src="/images/dog-01.png" 
-          alt="Barkley the dog" 
+          src={currentDog.src} 
+          alt={`${currentDog.name} the dog`} 
           style={{ 
-            height: '400px', // Adjust this depending on how big your image file is
+            height: '400px', 
             width: 'auto',
             objectFit: 'contain'
           }} 
@@ -63,14 +80,14 @@ export default function ComingSoon() {
         {/* Caption Text (Bottom Right) */}
         <div style={{ textAlign: 'left', paddingBottom: '30px', marginLeft: '20px' }}>
           <div style={{ 
-            fontSize: '32px', 
+            fontSize: '38px', 
             color: '#767676', 
             fontWeight: 300,
             marginBottom: '4px' 
           }}>
-            Barkley
+            {currentDog.name}
           </div>
-          <Link to="/about" style={{ color: '#0066c0', textDecoration: 'none', fontSize: '16px' }}>
+          <Link to="/about" style={{ color: '#0066c0', textDecoration: 'none', fontSize: '18px' }}>
             Meet the dogs of AWA Asset
           </Link>
         </div>
