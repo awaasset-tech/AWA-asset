@@ -126,39 +126,10 @@ export default function Navbar() {
           height: 66,
         }} ref={navRef}>
 
-          {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-            {/* Logo Icon Box */}
-            <div style={{
-              width: 36, height: 36, background: '#0a1628', borderRadius: 4,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <span style={{ color: '#e5b55a', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 19 }}>X</span>
-            </div>
-
-            {/* Text Wrapper: This div stacks the Title and Tagline vertically */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <span style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: isMobile ? 17 : 21,
-                fontWeight: 700, color: '#0a1628',
-                letterSpacing: '-0.3px', whiteSpace: 'nowrap',
-                lineHeight: 1.2, // Keeps title and tagline close together
-              }}>
-                AWA <span style={{ color: '#c8973a' }}>ASSET</span>
-              </span>
-              
-              <p style={{ 
-                color: '#6b7280', 
-                fontSize: isMobile ? 10 : 12, // Slightly smaller on mobile to prevent spill
-                margin: 0,                   // Removes default paragraph spacing
-                fontWeight: 500,
-                fontStyle: 'underline'
-              }}>
-                Built on Principles.
-              </p>
-            </div>
-          </Link>
+{/* Logo */}
+<Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+  <img src="/logo.png" alt="AWA Asset" style={{ height: 36, width: 'auto' }}/>
+</Link>>
 
           {/* Desktop nav */}
           {!isMobile && (
