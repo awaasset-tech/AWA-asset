@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AWA Asset — Wealth Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;800&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:  #1a237e;
+      --navy2: #0d1452;
+      --gold:  #f5b800;
+      --green: #00b050;
+      --white: #ffffff;
+      --gray:  #f5f5f5;
+      --text:  #1a1a1a;
+      --muted: #555555;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--white); }
+    a { text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ══════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════ */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo img { height: 36px !important; width: 36px !important; display: block; object-fit: contain; }
+    .logo-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--navy); letter-spacing: 0.02em; }
+    .logo-name strong { font-weight: 800; color: var(--green); }
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--navy);
+      background: none;
+      border: none;
+      padding: 8px;
+      line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Mobile nav menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 3px solid var(--gold);
+      z-index: 99;
+      padding: 16px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .mobile-menu a:last-child {
+      color: var(--white);
+      background: var(--navy);
+      border: none;
+      margin: 12px 16px 4px;
+      text-align: center;
+      padding: 12px;
+    }
+    .desktop-nav { display: none; }
+
+    /* ══════════════════════════════════════
+       HERO — MOBILE FIRST (stacked)
+    ══════════════════════════════════════ */
+    .hero {
+      background: var(--gold);
+      padding: 28px 20px 36px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy2);
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif', serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy2);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--navy2);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      opacity: 0.85;
+    }
+    .btn-hero {
+      display: block;
+      padding: 15px 20px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .btn-hero:hover { background: var(--navy2); }
+
+    /* Alpha image — hidden on mobile, shown on desktop */
+    .hero-alpha { display: none; }
+
+    /* ══════════════════════════════════════
+       STATS
+    ══════════════════════════════════════ */
+    .stats {
+      background: var(--navy);
+      padding: 24px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Noto Serif', serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════
+       SECTIONS
+    ══════════════════════════════════════ */
+    .section { padding: 44px 20px; }
+    .section.bg-gray { background: var(--gray); }
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .section h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .section-lead {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* ── Service Cards ── */
+    .cards { display: flex; flex-direction: column; gap: 16px; }
+    .card {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-top: 4px solid var(--gold);
+      padding: 24px 20px;
+    }
+    .card-icon { font-size: 32px; margin-bottom: 12px; line-height: 1; }
+    .card h3 {
+      font-family: 'Noto Serif', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Steps ── */
+    .steps { display: flex; flex-direction: column; gap: 16px; }
+    .step {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      padding: 24px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Serif', serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-family: 'Noto Serif', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .step-content p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Quote ── */
+    .quote {
+      background: var(--navy);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .quote blockquote {
+      font-family: 'Noto Serif', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .quote cite {
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--gold);
+      padding: 44px 20px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy2);
+      margin-bottom: 8px;
+    }
+    .cta p { font-size: 16px; color: var(--navy2); opacity: 0.8; margin-bottom: 24px; }
+    .btn-cta {
+      display: block;
+      padding: 16px 20px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover { background: var(--navy2); }
+
+    /* ── Footer ── */
+    footer { background: var(--navy2); }
+    .footer-top {
+      padding: 36px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      margin-bottom: 12px;
+      filter: none;
+      opacity: 1;
+    }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 9px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      padding: 16px 20px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════
+       DESKTOP OVERRIDES (768px+)
+    ══════════════════════════════════════ */
+    @media (min-width: 768px) {
+      /* Header */
+      .header { padding: 0 40px; height: 68px; }
+      .logo img { width: 140px; height: auto; }
+      .hamburger { display: none; }
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .desktop-nav a {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        padding-bottom: 3px;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+      }
+      .desktop-nav a:hover { color: var(--navy); border-bottom-color: var(--gold); }
+      .btn-enroll {
+        padding: 10px 22px;
+        border: 2px solid var(--navy);
+        color: var(--navy);
+        font-size: 14px;
+        font-weight: 700;
+        transition: all 0.2s;
+      }
+      .btn-enroll:hover { background: var(--navy); color: var(--white); }
+
+    /* Hero — side by side */
+      .hero {
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        min-height: 420px;
+        overflow: hidden;
+      }
+      .hero-left {
+        flex: 1.2;
+        padding: 64px 52px 64px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero h1 { font-size: 44px; }
+      .hero p { font-size: 18px; max-width: 400px; }
+      .btn-hero { display: inline-block; align-self: flex-start; width: auto; padding: 15px 36px; }
+      .hero-alpha {
+        display: flex;
+        flex: 0.8;
+        background: #0a0a0a;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-alpha::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 50px;
+        background: linear-gradient(to right, var(--gold), transparent);
+      }
+      .hero-alpha img {
+        width: 220px;
+        height: 220px;
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 0 40px rgba(245,184,0,0.6)) brightness(1.1);
+      }
+      .hero-alpha p {
+        font-family: 'Noto Serif', serif;
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        letter-spacing: 0.04em;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Stats */
+      .stats {
+        padding: 28px 60px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+      }
+      .stat { border-right: 1px solid rgba(255,255,255,0.1); padding: 0 20px; }
+      .stat:last-child { border-right: none; }
+      .stat-num { font-size: 36px; }
+
+      /* Sections */
+      .section { padding: 72px 60px; }
+      .section h2 { font-size: 40px; }
+
+      /* Cards */
+      .cards { flex-direction: row; gap: 0; border: 1px solid #e8e8e8; }
+      .card { flex: 1; border-top: 4px solid var(--gold); border-right: 1px solid #e8e8e8; border-bottom: none; border-left: none; }
+      .card:last-child { border-right: none; }
+
+      /* Steps */
+      .steps { flex-direction: row; gap: 0; border: 1px solid #e8e8e8; }
+      .step { flex: 1; flex-direction: column; align-items: center; text-align: center; border-right: 1px solid #e8e8e8; border-bottom: none; border-top: none; border-left: none; }
+      .step:last-child { border-right: none; }
+      .step-num { width: 56px; height: 56px; font-size: 22px; }
+
+      /* Quote */
+      .quote { padding: 52px 60px; }
+      .quote blockquote { font-size: 26px; max-width: 720px; margin: 0 auto 12px; }
+
+      /* CTA */
+      .cta { padding: 64px 60px; display: flex; text-align: left; align-items: center; justify-content: space-between; gap: 40px; }
+      .cta h2 { font-size: 36px; }
+      .btn-cta { display: inline-block; width: auto; white-space: nowrap; flex-shrink: 0; padding: 18px 44px; }
+
+      /* Footer */
+      .footer-top { padding: 52px 60px 36px; flex-direction: row; gap: 52px; }
+      .footer-brand { flex: 2; }
+      .footer-cols { display: contents; }
+      .footer-col { flex: 1; min-width: 120px; }
+      .footer-bottom { padding: 18px 60px; display: flex; justify-content: space-between; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="AWA Asset"/>
+    <span class="logo-name">AWA<strong>ASSET</strong></span>
+  </a>
+  <nav class="desktop-nav">
+    <a href="#">Our Services</a>
+    <a href="#">Partner Network</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+    <a href="partner_enrollment_final.html" class="btn-enroll">Partner Enrollment</a>
+  </nav>
+  <button class="hamburger" id="hamburger">☰</button>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">Our Services</a>
+  <a href="#">Partner Network</a>
+  <a href="#">About Us</a>
+  <a href="#">Contact</a>
+  <a href="partner_enrollment_final.html">Partner Enrollment</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">AWA Asset Management</div>
+    <h1>The key to being wealthy is knowing who guides it.</h1>
+    <p>Meet a distribution manager who understands what truly matters — building financial strategies to support a life you love.</p>
+    <a href="partner_enrollment_final.html" class="btn-hero">Join as a Partner Today</a>
+  </div>
+  <div class="hero-alpha">
+    <img src="alpha.png" alt="Generating Alpha"/>
+    <p>Generating Alpha for our Partners</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">128+</div>
+    <div class="stat-label">Distribution Partners</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">₹50Cr+</div>
+    <div class="stat-label">Assets Managed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5+</div>
+    <div class="stat-label">Years of Trust</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Product Categories</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="section-tag">What We Offer</div>
+  <h2>Comprehensive Wealth Management Solutions</h2>
+  <p class="section-lead">AWA Asset provides a full suite of investment products through our trusted network of Distribution Managers across India.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h3>Land & Real Estate</h3>
+      <p>Curated real estate investment opportunities with strong returns and capital appreciation potential across key Indian markets.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Portfolio Management</h3>
+      <p>Professional PMS solutions tailored to your risk profile and financial goals, managed by experienced advisors.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💹</div>
+      <h3>Mutual Funds</h3>
+      <p>Access to a wide range of direct mutual fund schemes across equity, debt, and hybrid categories for every investor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-gray">
+  <div class="section-tag">The Process</div>
+  <h2>How to Become a Distribution Manager</h2>
+  <p class="section-lead">A simple, streamlined process to join AWA Asset's partner network and start building your financial practice.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Enroll Online</h3>
+        <p>Complete the partner enrollment form with your personal and KYC details in minutes.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Document Verification</h3>
+        <p>Our team verifies your submitted documents within 2–3 business days.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Get Your DM ID</h3>
+        <p>Receive your unique Distribution Manager number and full account activation.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Start Earning</h3>
+        <p>Begin onboarding clients and earning commissions through AWA Asset's network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote">
+  <blockquote>"Financial goals aren't achieved overnight. The right guidance and the right partner make all the difference."</blockquote>
+  <cite>AWA Asset Management · Partner Network</cite>
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <div>
+    <h2>Ready to grow with AWA Asset?</h2>
+    <p>Join our network of 128+ Distribution Managers across India.</p>
+  </div>
+  <a href="partner_enrollment_final.html" class="btn-cta">Start Your Enrollment →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo.png" alt="AWA Asset"/>
+      <p>AWA Asset is a portfolio management company operating through a trusted network of Distribution Managers across India.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Land & Real Estate</a>
+        <a href="#">Portfolio Management</a>
+        <a href="#">Mutual Funds</a>
+      </div>
+      <div class="footer-col">
+        <h4>Partners</h4>
+        <a href="partner_enrollment_final.html">Enroll as Partner</a>
+        <a href="#">Partner Login</a>
+        <a href="#">Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About AWA Asset</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AWA Asset Management. All rights reserved.</span>
+    <span>Portfolio Management · Partner Network · India</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    mobileMenu.classList.toggle('open');
+    hamburger.textContent = mobileMenu.classList.contains('open') ? '✕' : '☰';
+  });
+</script>
+
+</body>
+</html>
