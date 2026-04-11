@@ -128,7 +128,7 @@ export default function Navbar() {
 
 {/* Logo */}
 <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-  <img src="/logo.png" alt="AWA Asset" style={{ height: 36, width: 'auto' }}/>
+  <img src="/logo.png" alt="AWA Asset" style={{ height: 48, width: 'auto' }}/>
 </Link>>
 
           {/* Desktop nav */}
