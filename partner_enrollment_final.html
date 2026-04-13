@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AWA Asset — Partner Enrollment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;800&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;800&family=Source+Sans+3:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --navy:  #1a237e;
@@ -35,9 +35,11 @@
       z-index: 100;
     }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo img { height: 36px !important; width: 36px !important; display: block; object-fit: contain; }
-    .logo-name { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--navy); letter-spacing: 0.02em; }
-    .logo-name strong { font-weight: 800; color: var(--green); }
+    .logo img { height: 44px; width: auto; display: block; object-fit: contain; }
+    .logo-text { display: flex; flex-direction: column; justify-content: center; }
+    .logo-text span { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #0a1628; letter-spacing: -0.3px; white-space: nowrap; line-height: 1.2; }
+    .logo-text span em { color: #c8973a; font-style: normal; }
+    .logo-text p { color: #6b7280; font-size: 9px; margin: 0; font-weight: 500; font-style: italic; white-space: nowrap; }
     .nav { display: flex; gap: 28px; align-items: center; }
     .nav a { font-size: 14px; font-weight: 600; color: var(--text); padding-bottom: 3px; border-bottom: 3px solid transparent; transition: all 0.2s; }
     .nav a:hover { color: var(--navy); border-bottom-color: var(--gold); }
@@ -294,7 +296,10 @@
 <header class="header">
   <a href="index.html" class="logo">
     <img src="logo.png" alt="AWA Asset"/>
-    <span class="logo-name">AWA<strong>ASSET</strong></span>
+    <div class="logo-text">
+      <span>AWA <em>Asset</em></span>
+      <p>Built on Principles.</p>
+    </div>
   </a>
   <nav class="nav">
     <a href="index.html">Home</a>
@@ -308,7 +313,7 @@
 <div class="hero">
   <div class="hero-inner">
     <div class="breadcrumb">AWA Asset → Partner Network → Enrollment</div>
-    <h1>Become a Distribution Manager</h1>
+    <h1>Become a Partner</h1>
     <p>Join AWA Asset's growing network of partners. Complete the form below to begin your enrollment.</p>
   </div>
 </div>
