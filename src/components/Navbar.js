@@ -128,14 +128,11 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            {/* Logo Image */}
             <img src="/logo.png" alt="AWA Asset" style={{ height: isMobile ? 36 : 44, width: 'auto', display: 'block' }} />
-
-            {/* Text Wrapper */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <span style={{
                 fontFamily: 'Playfair Display, serif',
-                fontSize: isMobile ? 15 : 19,
+                fontSize: isMobile ? 15 : 18,
                 fontWeight: 700,
                 color: '#0a1628',
                 letterSpacing: '-0.3px',
@@ -149,6 +146,7 @@ export default function Navbar() {
                 fontSize: isMobile ? 10 : 11,
                 margin: 0,
                 fontWeight: 500,
+                fontStyle: 'italic',
                 whiteSpace: 'nowrap',
               }}>
                 Built on Principles.
