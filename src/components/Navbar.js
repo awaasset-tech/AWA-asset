@@ -3,13 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   {
-    label: 'Accounts & plans',
+    label: 'Asset Class',
     children: [
-      { label: 'Individual accounts', to: '/accounts/individual' },
-      { label: 'Retirement accounts (IRA)', to: '/accounts/ira' },
-      { label: 'Employer-sponsored plans', to: '/accounts/employer' },
-      { label: 'Education savings (529)', to: '/accounts/529' },
-      { label: 'Cash Plus account', to: '/accounts/cash-plus' },
+      { label: 'Equity as Asset', to: '/assets/equity' },
+      { label: 'Debt as Asset', to: '/assets/debt' },
+      { label: 'Real Estate as Asset', to: '/assets/real-estate' },
+      { label: 'Commodity as Asset', to: '/assets/commodity' },
+      { label: 'Country Specific Asset', to: '/assets/country-specific' },
+      { label: 'Crypto Currency as Asset', to: '/assets/crypto' },
     ],
   },
   {
@@ -220,6 +221,17 @@ export default function Navbar() {
           {/* Desktop CTAs */}
           {!isMobile && (
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+              <a href="https://awa-backend.onrender.com/partner_enrollment_final.html" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
+                color: '#c8973a', padding: '7px 15px',
+                border: '1.5px solid #c8973a', borderRadius: 4,
+                textDecoration: 'none', transition: 'all 0.2s', whiteSpace: 'nowrap',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#c8973a'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#c8973a'; }}
+              >
+                Add Partner
+              </a>
               <Link to="/login" style={{
                 fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
                 color: '#0a1628', padding: '7px 15px',
@@ -248,14 +260,14 @@ export default function Navbar() {
           {/* Mobile: Log in + Hamburger */}
           {isMobile && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <Link to="/login" style={{
-                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
-                color: '#0a1628', padding: '7px 14px',
-                border: '1.5px solid #0a1628', borderRadius: 4,
+              <a href="https://awa-backend.onrender.com/partner_enrollment_final.html" style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: 12, fontWeight: 600,
+                color: '#c8973a', padding: '6px 10px',
+                border: '1.5px solid #c8973a', borderRadius: 4,
                 textDecoration: 'none', whiteSpace: 'nowrap',
               }}>
-                Log in
-              </Link>
+                Add Partner
+              </a>
               <button
                 onClick={() => setMobileOpen(o => !o)}
                 style={{ background: 'none', border: 'none', padding: '4px 2px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
