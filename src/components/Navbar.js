@@ -5,23 +5,27 @@ const navItems = [
   {
     label: 'Asset Class',
     children: [
-      { label: 'Equity as Asset', to: '/assets/equity' },
-      { label: 'Debt as Asset', to: '/assets/debt' },
-      { label: 'Real Estate as Asset', to: '/assets/real-estate' },
-      { label: 'Commodity as Asset', to: '/assets/commodity' },
+      { label: 'Equity', to: '/assets/equity' },
+      { label: 'Debt', to: '/assets/debt' },
+      { label: 'Real Estate', to: '/assets/real-estate' },
+      { label: 'Commodity', to: '/assets/commodity' },
       { label: 'Country Specific Asset', to: '/assets/country-specific' },
-      { label: 'Crypto Currency as Asset', to: '/assets/crypto' },
+      { label: 'Crypto Currency', to: '/assets/crypto' },
     ],
   },
   {
     label: 'Investment products',
     children: [
-      { label: 'Mutual funds', to: '/products/mutual-funds' },
-      { label: 'ETFs', to: '/products/etfs' },
+      { label: 'PMS', to: '/products/pms' },
+      { label: 'RIA', to: '/products/ria' },
+      { label: "ETF's", to: '/products/etfs' },
+      { label: 'Mutual Funds', to: '/products/mutual-funds' },
       { label: 'Stocks', to: '/products/stocks' },
       { label: 'Bonds', to: '/products/bonds' },
-      { label: 'CDs', to: '/products/cds' },
-      { label: 'Money market funds', to: '/products/money-markets' },
+      { label: 'Loans', to: '/products/loans' },
+      { label: 'Insurance', to: '/products/insurance' },
+      { label: 'Bitcoin', to: '/products/bitcoin' },
+      { label: 'Land', to: '/products/land' },            
     ],
   },
   {
@@ -129,7 +133,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            <img src="/logo.jpeg" alt="AWA Assset" style={{ height: isMobile ? 40 : 50, width: 'auto', display: 'block' }} />
+            <img src="/logo.jpeg" alt="AWA Asset" style={{ height: isMobile ? 40 : 50, width: 'auto', display: 'block' }} />
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <span style={{
                 fontFamily: 'Playfair Display, serif',
@@ -221,17 +225,6 @@ export default function Navbar() {
           {/* Desktop CTAs */}
           {!isMobile && (
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-              <a href="https://awa-backend.onrender.com/partner_enrollment_final.html" style={{
-                fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
-                color: '#c8973a', padding: '7px 15px',
-                border: '1.5px solid #c8973a', borderRadius: 4,
-                textDecoration: 'none', transition: 'all 0.2s', whiteSpace: 'nowrap',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#c8973a'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#c8973a'; }}
-              >
-                Add Partner
-              </a>
               <Link to="/login" style={{
                 fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600,
                 color: '#0a1628', padding: '7px 15px',
@@ -260,14 +253,6 @@ export default function Navbar() {
           {/* Mobile: Log in + Hamburger */}
           {isMobile && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <a href="https://awa-backend.onrender.com/partner_enrollment_final.html" style={{
-                fontFamily: 'DM Sans, sans-serif', fontSize: 12, fontWeight: 600,
-                color: '#c8973a', padding: '6px 10px',
-                border: '1.5px solid #c8973a', borderRadius: 4,
-                textDecoration: 'none', whiteSpace: 'nowrap',
-              }}>
-                Add Partner
-              </a>
               <button
                 onClick={() => setMobileOpen(o => !o)}
                 style={{ background: 'none', border: 'none', padding: '4px 2px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
