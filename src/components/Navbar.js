@@ -128,7 +128,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            <img src="/logo.png" alt="AWA Asset" style={{ height: isMobile ? 36 : 44, width: 'auto', display: 'block' }} />
+            <img src="/logo.jpeg" alt="AWA Asset" style={{ height: isMobile ? 40 : 50, width: 'auto', display: 'block' }} />
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <span style={{
                 fontFamily: 'Playfair Display, serif',
@@ -143,7 +143,7 @@ export default function Navbar() {
               </span>
               <p style={{
                 color: '#6b7280',
-                fontSize: isMobile ? 10 : 11,
+                fontSize: isMobile ? 7 : 8,
                 margin: 0,
                 fontWeight: 500,
                 fontStyle: 'italic',
