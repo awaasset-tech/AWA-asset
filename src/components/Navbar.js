@@ -126,10 +126,35 @@ export default function Navbar() {
           height: 66,
         }} ref={navRef}>
 
-{/* Logo */}
-<Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-  <img src="/logo.png" alt="AWA Asset" style={{ height: 48, width: 'auto' }}/>
-</Link>>
+          {/* Logo */}
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+            {/* Logo Image */}
+            <img src="/logo.png" alt="AWA Asset" style={{ height: isMobile ? 36 : 44, width: 'auto', display: 'block' }} />
+
+            {/* Text Wrapper */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <span style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: isMobile ? 15 : 19,
+                fontWeight: 700,
+                color: '#0a1628',
+                letterSpacing: '-0.3px',
+                whiteSpace: 'nowrap',
+                lineHeight: 1.2,
+              }}>
+                AWA <span style={{ color: '#c8973a' }}>Asset</span>
+              </span>
+              <p style={{
+                color: '#6b7280',
+                fontSize: isMobile ? 10 : 11,
+                margin: 0,
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+              }}>
+                Built on Principles.
+              </p>
+            </div>
+          </Link>
 
           {/* Desktop nav */}
           {!isMobile && (
