@@ -16,26 +16,32 @@ function JoinUsTab() {
         position: 'fixed',
         right: 0,
         top: '50%',
-        transform: 'translateY(-50%) rotate(90deg)',
-        transformOrigin: 'right center',
+        transform: 'translateY(-50%)',
         background: '#c8973a',
         color: '#fff',
         fontFamily: 'DM Sans, sans-serif',
         fontSize: 13,
         fontWeight: 700,
-        letterSpacing: '0.05em',
-        padding: '10px 20px',
+        letterSpacing: '0.06em',
+        textTransform: 'uppercase',
+        padding: '14px 18px',
         textDecoration: 'none',
         zIndex: 999,
-        borderRadius: '4px 4px 0 0',
-        boxShadow: '-2px 0 8px rgba(0,0,0,0.15)',
+        borderRadius: '8px 0 0 8px',
+        boxShadow: '-4px 0 16px rgba(0,0,0,0.25)',
         whiteSpace: 'nowrap',
-        transition: 'background 0.2s',
+        writingMode: 'horizontal-tb',
+        transition: 'background 0.2s, padding-right 0.2s',
+        border: '2px solid rgba(255,255,255,0.25)',
+        borderRight: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
       }}
-      onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
-      onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
+      onMouseEnter={e => { e.currentTarget.style.background = '#0a1628'; e.currentTarget.style.paddingRight = '24px'; }}
+      onMouseLeave={e => { e.currentTarget.style.background = '#c8973a'; e.currentTarget.style.paddingRight = '18px'; }}
     >
-      Join Us
+      🤝 Be a Partner
     </a>
   );
 }
