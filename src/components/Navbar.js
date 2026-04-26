@@ -13,38 +13,36 @@ const navItems = [
         { label: 'Stocks', to: '/assets/equity/stocks' },
       ]},
       { label: 'Debt', to: '/assets/debt', children: [
-        {label: 'Bonds', to: '/assets/equity/bonds'}, 
-        {label: 'Debt MF', to: '/assets/equity/debtmf' },
-        {label: 'Govt Bonds', to: '/assets/equity/govt-bonds' },
-        {label: 'Private Bonds', to: '/assets/equity/private-bonds' }
-
+        { label: 'Bonds', to: '/assets/debt/bonds' },
+        { label: 'Debt MF', to: '/assets/debt/debtmf' },
+        { label: 'Govt Bonds', to: '/assets/debt/govt-bonds' },
+        { label: 'Private Bonds', to: '/assets/debt/private-bonds' },
       ]},
-      { label: 'Real Estate', to: '/assets/real-estate', children : [
-        {label: 'REITs', to: '/assets/equity/reits'},
-        {label: 'Physical Real Estate', to: '/assets/equity/physical-real-estate'}
+      { label: 'Real Estate', to: '/assets/real-estate', children: [
+        { label: 'REITs', to: '/assets/real-estate/reits' },
+        { label: 'Physical Real Estate', to: '/assets/real-estate/physical' },
       ]},
       { label: 'Commodity', to: '/assets/commodity', children: [
-        {label: 'Gold', to: '/assets/equity/gold'}, 
-        {label: 'Silver', to: '/assets/equity/silver'}, 
-        {label: 'Other Commodities', to: '/assets/equity/other-commodities'}
+        { label: 'Gold', to: '/assets/commodity/gold' },
+        { label: 'Silver', to: '/assets/commodity/silver' },
+        { label: 'Other Commodities', to: '/assets/commodity/other' },
       ]},
       { label: 'Country Specific Asset', to: '/assets/country-specific', children: [
-        {label: 'Nasdaq 100 - US', to: '/assets/equity/nasdaq100'}, 
-        {label: 'SMP 500 - US', to: '/assets/equity/smp500'}, 
-        {label: 'Hangseng - HK', to: '/assets/equity/hangseng'}
+        { label: 'Nasdaq 100 - US', to: '/assets/country-specific/nasdaq100' },
+        { label: 'S&P 500 - US', to: '/assets/country-specific/sp500' },
+        { label: 'Hangseng - HK', to: '/assets/country-specific/hangseng' },
       ]},
       { label: 'Crypto Currency', to: '/assets/crypto', children: [
-        {label: 'Bitcoin', to: '/assets/equity/bitcoin'}, 
-        {label: 'Ethereum', to: '/assets/equity/ethereum'}
+        { label: 'Bitcoin', to: '/assets/crypto/bitcoin' },
+        { label: 'Ethereum', to: '/assets/crypto/ethereum' },
       ]},
     ],
   },
   {
-    label: 'Investment products',
+    label: 'Other Products',
     children: [
       { label: 'Loans', to: '/products/loans' },
       { label: 'Insurance', to: '/products/insurance' },
-      { label: 'Land', to: '/products/land' },            
     ],
   },
   {
@@ -74,6 +72,71 @@ const navItems = [
     ],
   },
 ];
+
+// Desktop: row with right-arrow flyout panel
+function FlyoutItem({ child, onClose }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ position: 'relative' }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', fontSize: 14, color: open ? '#c8973a' : '#0a1628', background: open ? '#f8f5f0' : 'none', cursor: 'default', transition: 'background 0.15s, color 0.15s' }}>
+        {child.label}
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" style={{ flexShrink: 0, marginLeft: 12 }}>
+          <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      {open && (
+        <div style={{ position: 'absolute', top: 0, left: '100%', background: '#fff', border: '1px solid #ddd8d0', borderRadius: 8, boxShadow: '0 12px 40px rgba(10,22,40,0.15)', minWidth: 200, padding: '8px 0', zIndex: 400 }}>
+          {child.children.map(sub => (
+            <Link key={sub.to} to={sub.to} onClick={onClose}
+              style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
+            >{sub.label}</Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Mobile: accordion child — expands sub-items inline if they exist
+function MobileChild({ child }) {
+  const [open, setOpen] = useState(false);
+  if (!child.children) {
+    return (
+      <Link to={child.to}
+        style={{ display: 'block', padding: '12px 22px 12px 36px', fontSize: 14, color: '#4a5568', textDecoration: 'none', borderBottom: '1px solid #ede9e3', fontFamily: 'DM Sans, sans-serif' }}
+        onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+        onMouseLeave={e => e.currentTarget.style.color = '#4a5568'}
+      >→ {child.label}</Link>
+    );
+  }
+  return (
+    <div>
+      <button onClick={() => setOpen(o => !o)}
+        style={{ width: '100%', background: open ? '#edeae5' : '#faf7f3', border: 'none', borderBottom: '1px solid #ede9e3', padding: '12px 22px 12px 36px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', fontSize: 14, fontWeight: 600, color: open ? '#c8973a' : '#4a5568', textAlign: 'left' }}
+      >
+        {child.label}
+        <svg width="8" height="5" viewBox="0 0 10 6" fill="none" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', flexShrink: 0 }}>
+          <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      <div style={{ maxHeight: open ? 400 : 0, overflow: 'hidden', transition: 'max-height 0.25s ease', background: '#f5f2ee' }}>
+        {child.children.map(sub => (
+          <Link key={sub.to} to={sub.to}
+            style={{ display: 'block', padding: '10px 22px 10px 52px', fontSize: 13, color: '#6b7280', textDecoration: 'none', borderBottom: '1px solid #e8e4de', fontFamily: 'DM Sans, sans-serif' }}
+            onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+            onMouseLeave={e => e.currentTarget.style.color = '#6b7280'}
+          >› {sub.label}</Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function HamburgerIcon({ open }) {
   return (
     <div style={{ width: 24, height: 18, position: 'relative' }}>
@@ -123,17 +186,17 @@ export default function Navbar() {
       <header style={{ background: '#fff', borderBottom: '1px solid #ddd8d0', position: 'sticky', top: 0, zIndex: 200, boxShadow: '0 2px 16px rgba(10,22,40,0.07)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 66 }} ref={navRef}>
 
-        {/* Logo */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 22.5 : 27, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
-              AWA <span style={{ color: '#c8973a' }}>Asset</span>
-            </span>
-            <p style={{ color: '#6b7280', fontSize: isMobile ? 10.5 : 12, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
-              Built on Principles.
-            </p>
-          </div>
-        </Link>
+          {/* Logo */}
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 22.5 : 27, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
+                AWA <span style={{ color: '#c8973a' }}>Asset</span>
+              </span>
+              <p style={{ color: '#6b7280', fontSize: isMobile ? 10.5 : 12, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
+                Built on Principles.
+              </p>
+            </div>
+          </Link>
 
           {/* Desktop nav */}
           {!isMobile && (
@@ -150,18 +213,18 @@ export default function Navbar() {
                     </svg>
                   </button>
                   {activeMenu === item.label && (
-                    <div style={{ position: 'absolute', top: '100%', left: 0, background: '#fff', border: '1px solid #ddd8d0', borderRadius: 8, boxShadow: '0 12px 40px rgba(10,22,40,0.15)', minWidth: 210, padding: '8px 0', animation: 'fadeUp 0.15s ease', zIndex: 300 }}
+                    <div style={{ position: 'absolute', top: '100%', left: 0, background: '#fff', border: '1px solid #ddd8d0', borderRadius: 8, boxShadow: '0 12px 40px rgba(10,22,40,0.15)', minWidth: 220, padding: '8px 0', zIndex: 300 }}
                       onMouseEnter={() => setActiveMenu(item.label)}
                       onMouseLeave={() => setActiveMenu(null)}
                     >
                       {item.children.map(child => (
-                        <Link key={child.to} to={child.to} onClick={() => setActiveMenu(null)}
-                          style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
-                          onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
-                          onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
-                        >
-                          {child.label}
-                        </Link>
+                        child.children
+                          ? <FlyoutItem key={child.to} child={child} onClose={() => setActiveMenu(null)} />
+                          : <Link key={child.to} to={child.to} onClick={() => setActiveMenu(null)}
+                              style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
+                              onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
+                              onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
+                            >{child.label}</Link>
                       ))}
                     </div>
                   )}
@@ -209,12 +272,9 @@ export default function Navbar() {
                       <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
-                  <div style={{ maxHeight: mobileExpanded === item.label ? 500 : 0, overflow: 'hidden', transition: 'max-height 0.3s ease', background: '#faf7f3' }}>
+                  <div style={{ maxHeight: mobileExpanded === item.label ? 1000 : 0, overflow: 'hidden', transition: 'max-height 0.35s ease', background: '#faf7f3' }}>
                     {item.children.map(child => (
-                      <Link key={child.to} to={child.to} style={{ display: 'block', padding: '12px 22px 12px 36px', fontSize: 14, color: '#4a5568', textDecoration: 'none', borderBottom: '1px solid #ede9e3', fontFamily: 'DM Sans, sans-serif' }}
-                        onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
-                        onMouseLeave={e => e.currentTarget.style.color = '#4a5568'}
-                      >→ {child.label}</Link>
+                      <MobileChild key={child.to} child={child} />
                     ))}
                   </div>
                 </div>
