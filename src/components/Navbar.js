@@ -13,6 +13,7 @@ const navItems = [
         { label: 'Stocks', to: '/assets/equity/stocks' },
       ]},
       { label: 'Debt', to: '/assets/debt', children: [
+        { label: 'Fixed Deposit', to: '/assets/debt/fixed-deposit' },
         { label: 'Bonds', to: '/assets/debt/bonds' },
         { label: 'Debt MF', to: '/assets/debt/debtmf' },
       ]},
