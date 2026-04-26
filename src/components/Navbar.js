@@ -5,7 +5,13 @@ const navItems = [
   {
     label: 'Asset Class',
     children: [
-      { label: 'Equity', to: '/assets/equity' },
+      { label: 'Equity', to: '/assets/equity', children: [
+        { label: 'PMS', to: '/assets/equity/pms' },
+        { label: 'RIA', to: '/assets/equity/ria' },
+        { label: "ETF's", to: '/assets/equity/etfs' },
+        { label: 'Mutual Funds', to: '/assets/equity/mutual-funds' },
+        { label: 'Stocks', to: '/assets/equity/stocks' },
+      ]},
       { label: 'Debt', to: '/assets/debt' },
       { label: 'Real Estate', to: '/assets/real-estate' },
       { label: 'Commodity', to: '/assets/commodity' },
@@ -110,7 +116,7 @@ export default function Navbar() {
             <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 26.2 : 41.5, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
               AWA <span style={{ color: '#c8973a' }}>Asset</span>
             </span>
-            <p style={{ color: '#6b7280', fontSize: isMobile ? 10.5 : 12, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
+            <p style={{ color: '#6b7280', fontSize: isMobile ? 14 : 16, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
               Built on Principles.
             </p>
           </div>
@@ -135,7 +141,30 @@ export default function Navbar() {
                       onMouseEnter={() => setActiveMenu(item.label)}
                       onMouseLeave={() => setActiveMenu(null)}
                     >
-                      {item.children.map(child => (
+                    {item.children.map(child => (
+                        child.children ? (
+                          <div key={child.label} style={{ position: 'relative' }}
+                            onMouseEnter={e => e.currentTarget.querySelector('.flyout').style.display = 'block'}
+                            onMouseLeave={e => e.currentTarget.querySelector('.flyout').style.display = 'none'}
+                          >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, cursor: 'default', transition: 'background 0.15s, color 0.15s' }}
+                              onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
+                              onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
+                            >
+                              {child.label}
+                              <svg width="6" height="9" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </div>
+                            <div className="flyout" style={{ display: 'none', position: 'absolute', top: 0, left: '100%', background: '#fff', border: '1px solid #ddd8d0', borderRadius: 8, boxShadow: '0 12px 40px rgba(10,22,40,0.15)', minWidth: 180, padding: '8px 0', zIndex: 400 }}>
+                              {child.children.map(sub => (
+                                <Link key={sub.to} to={sub.to} onClick={() => setActiveMenu(null)}
+                                  style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
+                                  onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
+                                  onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0a1628'; }}
+                                >{sub.label}</Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
                         <Link key={child.to} to={child.to} onClick={() => setActiveMenu(null)}
                           style={{ display: 'block', padding: '10px 20px', fontSize: 14, color: '#0a1628', fontWeight: 400, textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
                           onMouseEnter={e => { e.currentTarget.style.background = '#f8f5f0'; e.currentTarget.style.color = '#c8973a'; }}
@@ -143,6 +172,7 @@ export default function Navbar() {
                         >
                           {child.label}
                         </Link>
+                        )
                       ))}
                     </div>
                   )}
@@ -192,10 +222,24 @@ export default function Navbar() {
                   </button>
                   <div style={{ maxHeight: mobileExpanded === item.label ? 500 : 0, overflow: 'hidden', transition: 'max-height 0.3s ease', background: '#faf7f3' }}>
                     {item.children.map(child => (
+                      child.children ? (
+                        <div key={child.label}>
+                          <div style={{ display: 'block', padding: '12px 22px 12px 36px', fontSize: 14, color: '#4a5568', borderBottom: '1px solid #ede9e3', fontFamily: 'DM Sans, sans-serif', fontWeight: 600 }}>
+                            {child.label}
+                          </div>
+                          {child.children.map(sub => (
+                            <Link key={sub.to} to={sub.to} style={{ display: 'block', padding: '10px 22px 10px 52px', fontSize: 13, color: '#6b7280', textDecoration: 'none', borderBottom: '1px solid #ede9e3', fontFamily: 'DM Sans, sans-serif' }}
+                              onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
+                              onMouseLeave={e => e.currentTarget.style.color = '#6b7280'}
+                            >› {sub.label}</Link>
+                          ))}
+                        </div>
+                      ) : (
                       <Link key={child.to} to={child.to} style={{ display: 'block', padding: '12px 22px 12px 36px', fontSize: 14, color: '#4a5568', textDecoration: 'none', borderBottom: '1px solid #ede9e3', fontFamily: 'DM Sans, sans-serif' }}
                         onMouseEnter={e => e.currentTarget.style.color = '#c8973a'}
                         onMouseLeave={e => e.currentTarget.style.color = '#4a5568'}
                       >→ {child.label}</Link>
+                      )
                     ))}
                   </div>
                 </div>
