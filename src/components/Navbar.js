@@ -12,25 +12,38 @@ const navItems = [
         { label: 'Mutual Funds', to: '/assets/equity/mutual-funds' },
         { label: 'Stocks', to: '/assets/equity/stocks' },
       ]},
-      { label: 'Debt', to: '/assets/debt' },
-      { label: 'Real Estate', to: '/assets/real-estate' },
-      { label: 'Commodity', to: '/assets/commodity' },
-      { label: 'Country Specific Asset', to: '/assets/country-specific' },
-      { label: 'Crypto Currency', to: '/assets/crypto' },
+      { label: 'Debt', to: '/assets/debt', children: [
+        {label: 'Bonds', to: '/assets/equity/bonds'}, 
+        {label: 'Debt MF', to: '/assets/equity/debtmf' },
+        {label: 'Govt Bonds', to: '/assets/equity/govt-bonds' },
+        {label: 'Private Bonds', to: '/assets/equity/private-bonds' }
+
+      ]},
+      { label: 'Real Estate', to: '/assets/real-estate', children : [
+        {label: 'REITs', to: '/assets/equity/reits'},
+        {label: 'Physical Real Estate', to: '/assets/equity/physical-real-estate'}
+      ]},
+      { label: 'Commodity', to: '/assets/commodity', children: [
+        {label: 'Gold', to: '/assets/equity/gold'}, 
+        {label: 'Silver', to: '/assets/equity/silver'}, 
+        {label: 'Other Commodities', to: '/assets/equity/other-commodities'}
+      ]},
+      { label: 'Country Specific Asset', to: '/assets/country-specific', children: [
+        {label: 'Nasdaq 100 - US', to: '/assets/equity/nasdaq100'}, 
+        {label: 'SMP 500 - US', to: '/assets/equity/smp500'}, 
+        {label: 'Hangseng - HK', to: '/assets/equity/hangseng'}
+      ]},
+      { label: 'Crypto Currency', to: '/assets/crypto', children: [
+        {label: 'Bitcoin', to: '/assets/equity/bitcoin'}, 
+        {label: 'Ethereum', to: '/assets/equity/ethereum'}
+      ]},
     ],
   },
   {
     label: 'Investment products',
     children: [
-      { label: 'PMS', to: '/products/pms' },
-      { label: 'RIA', to: '/products/ria' },
-      { label: "ETF's", to: '/products/etfs' },
-      { label: 'Mutual Funds', to: '/products/mutual-funds' },
-      { label: 'Stocks', to: '/products/stocks' },
-      { label: 'Bonds', to: '/products/bonds' },
       { label: 'Loans', to: '/products/loans' },
       { label: 'Insurance', to: '/products/insurance' },
-      { label: 'Bitcoin', to: '/products/bitcoin' },
       { label: 'Land', to: '/products/land' },            
     ],
   },
