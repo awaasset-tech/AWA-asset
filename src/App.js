@@ -7,6 +7,10 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TopBar from './components/TopBar';
 import Bonds from './pages/Bonds';
+import MutualFunds from './pages/MutualFunds';
+import ETFs from './pages/ETFs';
+import Stocks from './pages/Stocks';
+
 import './styles.css';
 
 function JoinUsTab() {
@@ -58,6 +62,9 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<ComingSoon />} />
         <Route path="/assets/debt/bonds" element={<Bonds />} />
+        <Route path="/assets/equity/mutual-funds" element={<MutualFunds />} />
+        <Route path="/assets/equity/etfs" element={<ETFs />} />
+        <Route path="/assets/equity/stocks" element={<Stocks />} />
       </Routes>
       <Footer />
     </BrowserRouter>
