@@ -104,17 +104,17 @@ export default function Navbar() {
       <header style={{ background: '#fff', borderBottom: '1px solid #ddd8d0', position: 'sticky', top: 0, zIndex: 200, boxShadow: '0 2px 16px rgba(10,22,40,0.07)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 66 }} ref={navRef}>
 
-          {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 15 : 18, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
-                AWA <span style={{ color: '#c8973a' }}>Asset</span>
-              </span>
-              <p style={{ color: '#6b7280', fontSize: isMobile ? 7 : 8, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
-                Built on Principles.
-              </p>
-            </div>
-          </Link>
+        {/* Logo */}
+        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 22.5 : 27, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
+              AWA <span style={{ color: '#c8973a' }}>Asset</span>
+            </span>
+            <p style={{ color: '#6b7280', fontSize: isMobile ? 10.5 : 12, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
+              Built on Principles.
+            </p>
+          </div>
+        </Link>
 
           {/* Desktop nav */}
           {!isMobile && (
