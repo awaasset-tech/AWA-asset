@@ -8,7 +8,7 @@ const navItems = [
       { label: 'Equity', to: '/assets/equity', children: [
         { label: 'PMS', to: '/assets/equity/pms' },
         { label: 'RIA', to: '/assets/equity/ria' },
-        { label: "ETF's", to: '/assets/equity/etfs' },
+        { label: "ETF's/Index", to: '/assets/equity/etfs-index' },
         { label: 'Mutual Funds', to: '/assets/equity/mutual-funds' },
         { label: 'Stocks', to: '/assets/equity/stocks' },
       ]},
