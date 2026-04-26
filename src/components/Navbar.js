@@ -107,7 +107,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 22.5 : 27, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
+            <span style={{ fontFamily: 'Playfair Display, serif', fontSize: isMobile ? 30 : 36, fontWeight: 700, color: '#0a1628', letterSpacing: '-0.3px', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
               AWA <span style={{ color: '#c8973a' }}>Asset</span>
             </span>
             <p style={{ color: '#6b7280', fontSize: isMobile ? 10.5 : 12, margin: 0, fontWeight: 500, fontStyle: 'italic', whiteSpace: 'nowrap' }}>
