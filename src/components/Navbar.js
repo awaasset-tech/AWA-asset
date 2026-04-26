@@ -8,15 +8,15 @@ const navItems = [
       { label: 'Equity', to: '/assets/equity', children: [
         { label: 'PMS', to: '/assets/equity/pms' },
         { label: 'RIA', to: '/assets/equity/ria' },
-        { label: "ETF's/Index", to: '/assets/equity/etfs-index' },
+        { label: "ETF's-Index", to: '/assets/equity/etfs-index' },
         { label: 'Mutual Funds', to: '/assets/equity/mutual-funds' },
         { label: 'Stocks', to: '/assets/equity/stocks' },
       ]},
       { label: 'Debt', to: '/assets/debt', children: [
-        { label: 'Bonds', to: '/assets/debt/bonds' },
-        { label: 'Debt MF', to: '/assets/debt/debtmf' },
-        { label: 'Govt Bonds', to: '/assets/debt/govt-bonds' },
         { label: 'Private Bonds', to: '/assets/debt/private-bonds' },
+        { label: 'Govt Bonds', to: '/assets/debt/govt-bonds' },
+        { label: 'Debt MF', to: '/assets/debt/debtmf' },
+
       ]},
       { label: 'Real Estate', to: '/assets/real-estate', children: [
         { label: 'REITs', to: '/assets/real-estate/reits' },
