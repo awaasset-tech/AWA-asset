@@ -6,6 +6,7 @@ import AboutPage from './pages/AboutPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TopBar from './components/TopBar';
+import Bonds from './pages/Bonds';
 import './styles.css';
 
 function JoinUsTab() {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<ComingSoon />} />
+        <Route path="/assets/debt/bonds" element={<Bonds />} />
       </Routes>
       <Footer />
     </BrowserRouter>
