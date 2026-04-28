@@ -17,7 +17,7 @@ import './styles.css';
 function JoinUsTab() {
   return (
     <a
-      href="https://awa-backend.onrender.com/partner_enrollment_final.html"
+      href="/partner-enrollment"
       style={{
         position: 'fixed',
         right: 0,
