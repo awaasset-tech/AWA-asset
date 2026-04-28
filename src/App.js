@@ -10,6 +10,7 @@ import Bonds from './pages/Bonds';
 import MutualFunds from './pages/MutualFunds';
 import ETFs from './pages/ETFs';
 import Stocks from './pages/Stocks';
+import PartnerEnrollment from './pages/PartnerEnrollment';
 
 import './styles.css';
 
@@ -65,6 +66,7 @@ function App() {
         <Route path="/assets/equity/mutual-funds" element={<MutualFunds />} />
         <Route path="/assets/equity/etfs" element={<ETFs />} />
         <Route path="/assets/equity/stocks" element={<Stocks />} />
+        <Route path="/partner-enrollment" element={<PartnerEnrollment />} />
       </Routes>
       <Footer />
     </BrowserRouter>

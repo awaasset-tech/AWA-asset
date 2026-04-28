@@ -243,6 +243,10 @@ export default function Navbar() {
                 onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
                 onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
               >Open account</Link>
+              <Link to="/partner-enrollment" style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 600, color: '#fff', padding: '8px 15px', background: '#0a1628', borderRadius: 4, textDecoration: 'none', transition: 'background 0.2s', whiteSpace: 'nowrap' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#c8973a'}
+                onMouseLeave={e => e.currentTarget.style.background = '#0a1628'}
+              >Be a Partner</Link>              
             </div>
           )}
 
@@ -284,6 +288,10 @@ export default function Navbar() {
                 onMouseEnter={e => e.currentTarget.style.background = '#0a1628'}
                 onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
               >Open an account</Link>
+              <Link to="/partner-enrollment" style={{ display: 'block', background: '#0a1628', color: '#fff', padding: '14px', borderRadius: 6, fontFamily: 'DM Sans, sans-serif', fontWeight: 700, fontSize: 15, textAlign: 'center', textDecoration: 'none', marginTop: 10, transition: 'background 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#c8973a'}
+                onMouseLeave={e => e.currentTarget.style.background = '#0a1628'}
+              >Be a Partner</Link>              
             </div>
           </div>
         </>
