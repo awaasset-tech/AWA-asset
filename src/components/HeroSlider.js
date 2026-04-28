@@ -167,7 +167,7 @@ export default function HeroSlider() {
             >
               {slide.cta2}
             </Link>
-            <a href="https://awa-backend.onrender.com/partner_enrollment_final.html" style={{
+            <a href="/partner-enrollment" style={{
               background: 'transparent',
               color: '#c8973a',
               padding: '12px 26px',
