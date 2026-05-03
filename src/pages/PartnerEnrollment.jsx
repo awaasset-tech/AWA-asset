@@ -1,319 +1,536 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import './PartnerEnrollment.css';
 
-const API_BASE = 'https://awa-backend-v2.onrender.com';
+const PartnerEnrollment = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+    // Personal Details
+    name: '',
+    mobile: '',
+    email: '',
+    
+    // OTP
+    otp: '',
+    mobileVerified: false,
+    
+    // Nominee Information
+    nomineeName: '',
+    
+    // Professional Background
+    education: '',
+    annualIncome: '',
+    yearsOfExperience: '',
+    
+    // Documents
+    documents: {
+      panCard: '',
+      aadharCard: '',
+      cancelledCheque: '',
+      nomineeAadhar: '',
+      nomineePan: ''
+    }
+  });
 
-// ── EXACT awaasset.com design tokens ──
-const C = {
-  navy:       '#0d1452',
-  navyMid:    '#1a2260',
-  cream:      '#f5f0e8',
-  creamLight: '#faf7f2',
-  gold:       '#c8973a',
-  text:       '#1a1a2e',
-  textMuted:  '#6b6b80',
-  border:     '#e2d9c8',
-  white:      '#ffffff',
-  error:      '#c62828',
-};
+  const [uploadStatus, setUploadStatus] = useState({
+    panCard: false,
+    aadharCard: false,
+    cancelledCheque: false,
+    nomineeAadhar: false,
+    nomineePan: false
+  });
 
-const serif = "'Playfair Display', 'Georgia', serif";
-const sans  = "'DM Sans', 'Helvetica Neue', sans-serif";
+  const [loading, setLoading] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
 
-function Field({ label, required, children }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-      <label style={{ fontFamily: sans, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.textMuted }}>
-        {label} {required && <span style={{ color: C.gold }}>*</span>}
-      </label>
-      {children}
-    </div>
-  );
-}
-
-function TextInput({ style, ...props }) {
-  const [focused, setFocused] = useState(false);
-  return (
-    <input
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
-      style={{
-        fontFamily: sans, fontSize: 15, color: C.text,
-        background: 'transparent', border: 'none',
-        borderBottom: `2px solid ${focused ? C.gold : C.border}`,
-        borderRadius: 0, padding: '10px 2px', outline: 'none',
-        width: '100%', transition: 'border-color 0.2s', ...style,
-      }}
-      {...props}
-    />
-  );
-}
-
-function SelectInput({ style, ...props }) {
-  const [focused, setFocused] = useState(false);
-  return (
-    <select
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
-      style={{
-        fontFamily: sans, fontSize: 15, color: props.value ? C.text : C.textMuted,
-        background: 'transparent', border: 'none',
-        borderBottom: `2px solid ${focused ? C.gold : C.border}`,
-        borderRadius: 0, padding: '10px 2px', outline: 'none',
-        width: '100%', cursor: 'pointer', transition: 'border-color 0.2s', ...style,
-      }}
-      {...props}
-    />
-  );
-}
-
-const DOCS = [
-  { key: 'pan_card',         label: 'PAN Card',          icon: '🪪', required: true  },
-  { key: 'aadhar_card',      label: 'Aadhaar Card',      icon: '📋', required: true  },
-  { key: 'cancelled_cheque', label: 'Cancelled Cheque',  icon: '🏦', required: true  },
-  { key: 'nominee_pan',      label: "Nominee's PAN",     icon: '🪪', required: false },
-  { key: 'nominee_aadhar',   label: "Nominee's Aadhaar", icon: '📋', required: false },
-];
-
-function Card({ step, title, children }) {
-  return (
-    <div style={{ background: C.creamLight, border: `1px solid ${C.border}`, marginBottom: 20 }}>
-      <div style={{ background: C.navy, padding: '16px 28px', display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div style={{
-          width: 26, height: 26, borderRadius: '50%',
-          border: `1.5px solid ${C.gold}`, color: C.gold,
-          fontFamily: serif, fontSize: 13, fontWeight: 700,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-        }}>{step}</div>
-        <span style={{ fontFamily: serif, fontSize: 17, fontWeight: 600, color: C.white, letterSpacing: '0.02em' }}>{title}</span>
-      </div>
-      <div style={{ padding: '28px 28px 32px' }}>{children}</div>
-    </div>
-  );
-}
-
-export default function PartnerEnrollment() {
-  const [form, setForm] = useState({ full_name: '', mobile: '', email: '', nominee_name: '', nominee_relationship: '' });
-  const [otp, setOtp]             = useState('');
-  const [otpSent, setOtpSent]     = useState(false);
-  const [otpVerified, setOtpVerified] = useState(false);
-  const [docs, setDocs]           = useState({});
-  const [previews, setPreviews]   = useState({});
-  const [status, setStatus]       = useState({ type: '', msg: '' });
-  const [loading, setLoading]     = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const fileRefs = useRef({});
-
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-
-  const sendOtp = async () => {
-    if (!form.email || !form.full_name) { setStatus({ type: 'error', msg: 'Please enter your name and email first.' }); return; }
-    setLoading('otp'); setStatus({ type: '', msg: '' });
-    try {
-      const res = await fetch(`${API_BASE}/api/send-otp`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email, name: form.full_name }),
-      });
-      const data = await res.json();
-      if (res.ok) { setOtpSent(true); setStatus({ type: 'ok', msg: `OTP sent to ${form.email}` }); }
-      else setStatus({ type: 'error', msg: data.message || 'Failed to send OTP.' });
-    } catch { setStatus({ type: 'error', msg: 'Network error. Try again.' }); }
-    setLoading('');
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const verifyOtp = async () => {
-    if (!otp) return;
-    setLoading('verify'); setStatus({ type: '', msg: '' });
+  // Send OTP
+  const handleSendOTP = async () => {
+    if (!formData.mobile.match(/^\+91[6-9]\d{9}$/)) {
+      alert('Please enter a valid mobile number (e.g., +919876543210)');
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/verify-otp`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email, otp }),
+      const response = await fetch('/api/otp/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mobile: formData.mobile })
       });
-      const data = await res.json();
-      if (res.ok) { setOtpVerified(true); setStatus({ type: 'ok', msg: 'Email verified ✓' }); }
-      else setStatus({ type: 'error', msg: data.message || 'Invalid OTP.' });
-    } catch { setStatus({ type: 'error', msg: 'Network error. Try again.' }); }
-    setLoading('');
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setOtpSent(true);
+        alert('OTP sent! Check your registered email.');
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      alert('Failed to send OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleFile = (key, file) => {
+  // Verify OTP
+  const handleVerifyOTP = async () => {
+    if (!formData.otp || formData.otp.length !== 6) {
+      alert('Please enter a valid 6-digit OTP');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch('/api/otp/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          mobile: formData.mobile, 
+          otp: formData.otp 
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success && result.verified) {
+        setFormData(prev => ({ ...prev, mobileVerified: true }));
+        setCurrentStep(2);
+        alert('Mobile verified successfully!');
+      } else {
+        alert(result.error || 'Invalid OTP');
+      }
+    } catch (error) {
+      alert('Failed to verify OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Upload Document
+  const handleDocumentUpload = async (e, documentType) => {
+    const file = e.target.files[0];
     if (!file) return;
-    setDocs(d => ({ ...d, [key]: file }));
-    const r = new FileReader();
-    r.onload = e => setPreviews(p => ({ ...p, [key]: e.target.result }));
-    r.readAsDataURL(file);
-  };
 
-  const handleSubmit = async () => {
-    if (!otpVerified) { setStatus({ type: 'error', msg: 'Please verify your email first.' }); return; }
-    const missing = DOCS.filter(d => d.required && !docs[d.key]).map(d => d.label);
-    if (missing.length) { setStatus({ type: 'error', msg: `Please upload: ${missing.join(', ')}` }); return; }
-    if (!form.full_name || !form.mobile || !form.email || !form.nominee_name) { setStatus({ type: 'error', msg: 'Please fill all required fields.' }); return; }
-    setLoading('submit'); setStatus({ type: '', msg: '' });
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size must be less than 5MB');
+      return;
+    }
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('documentType', documentType);
+
     try {
-      const fd = new FormData();
-      Object.entries(form).forEach(([k, v]) => fd.append(k, v));
-      DOCS.forEach(({ key }) => { if (docs[key]) fd.append(key, docs[key]); });
-      const res = await fetch(`${API_BASE}/api/enroll`, { method: 'POST', body: fd });
-      if (res.ok) setSubmitted(true);
-      else { const d = await res.json(); setStatus({ type: 'error', msg: d.message || 'Submission failed.' }); }
-    } catch { setStatus({ type: 'error', msg: 'Network error. Try again.' }); }
-    setLoading('');
+      const response = await fetch('/api/documents/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setFormData(prev => ({
+          ...prev,
+          documents: {
+            ...prev.documents,
+            [documentType]: result.data.url
+          }
+        }));
+        setUploadStatus(prev => ({
+          ...prev,
+          [documentType]: true
+        }));
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      alert('Upload failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (submitted) return (
-    <div style={{ minHeight: '100vh', background: C.cream, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-      <div style={{ background: C.creamLight, border: `1px solid ${C.border}`, padding: '56px 48px', maxWidth: 520, width: '100%', textAlign: 'center' }}>
-        <div style={{ width: 64, height: 64, borderRadius: '50%', background: C.navy, border: `3px solid ${C.gold}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 28px', fontSize: 26, color: C.gold }}>✓</div>
-        <h2 style={{ fontFamily: serif, fontSize: 32, fontWeight: 700, color: C.navy, marginBottom: 16 }}>Welcome to AWA Asset</h2>
-        <p style={{ fontFamily: sans, color: C.textMuted, lineHeight: 1.8, marginBottom: 8 }}>
-          Your enrollment has been received. A welcome email has been sent to <strong style={{ color: C.text }}>{form.email}</strong>.
-        </p>
-        <p style={{ fontFamily: sans, color: C.textMuted, lineHeight: 1.8, marginBottom: 36 }}>
-          Our team will reach out within 1–2 business days to complete your onboarding.
-        </p>
-        <a href="/" style={{ fontFamily: sans, fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', background: C.gold, color: C.white, padding: '14px 36px', textDecoration: 'none', display: 'inline-block' }}>
-          Back to Home
-        </a>
-      </div>
-    </div>
-  );
+  // Submit Enrollment
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate all documents uploaded
+    const allDocsUploaded = Object.values(uploadStatus).every(status => status === true);
+    if (!allDocsUploaded) {
+      alert('Please upload all required documents');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch('/api/partner/enroll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          mobile: formData.mobile,
+          email: formData.email,
+          nomineeName: formData.nomineeName,
+          education: formData.education,
+          annualIncome: formData.annualIncome,
+          yearsOfExperience: formData.yearsOfExperience,
+          documents: formData.documents
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        alert(`Success! Your Partner ID: ${result.data.partnerId}\n\nWelcome email sent to ${result.data.email}`);
+        // Reset form or redirect
+        window.location.href = '/success';
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      alert('Enrollment failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ minHeight: '100vh', background: C.cream, fontFamily: sans }}>
-
-      {/* HERO — dark navy like awaasset.com */}
-      <div style={{ background: `linear-gradient(160deg, ${C.navy} 0%, ${C.navyMid} 100%)`, padding: 'clamp(48px,8vw,80px) 24px clamp(40px,6vw,64px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', border: `1px solid rgba(200,151,58,0.12)`, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 0, right: 40, width: 180, height: 180, borderRadius: '50%', border: `1px solid rgba(200,151,58,0.08)`, pointerEvents: 'none' }} />
-        <p style={{ fontFamily: sans, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold, marginBottom: 16 }}>
-          Distribution Manager Program
-        </p>
-        <h1 style={{ fontFamily: serif, fontSize: 'clamp(32px,6vw,54px)', fontWeight: 700, color: C.white, marginBottom: 20, lineHeight: 1.15 }}>
-          Become a Partner
-        </h1>
-        <div style={{ width: 48, height: 2, background: C.gold, margin: '0 auto 20px' }} />
-        <p style={{ fontFamily: sans, fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
-          Join AWA Asset's network of Distribution Managers and build a rewarding career in wealth management.
-        </p>
+    <div className="enrollment-container">
+      <div className="enrollment-header">
+        <h1>Partner Enrollment</h1>
+        <p>Join AWA Asset Management's network of distribution partners</p>
       </div>
 
-      {/* BREADCRUMB */}
-      <div style={{ background: C.creamLight, borderBottom: `1px solid ${C.border}`, padding: '10px 24px', display: 'flex', gap: 6, alignItems: 'center' }}>
-        {['Home', 'Partners', 'Enroll'].map((s, i, arr) => (
-          <React.Fragment key={s}>
-            <span style={{ fontFamily: sans, fontSize: 12, color: i < arr.length - 1 ? C.gold : C.textMuted, fontWeight: i < arr.length - 1 ? 500 : 400 }}>{s}</span>
-            {i < arr.length - 1 && <span style={{ color: C.border, fontSize: 12 }}>›</span>}
-          </React.Fragment>
-        ))}
+      <div className="progress-bar">
+        <div className={`progress-step ${currentStep >= 1 ? 'active' : ''}`}>
+          <div className="step-number">1</div>
+          <div className="step-label">Verification</div>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}>
+          <div className="step-number">2</div>
+          <div className="step-label">Details</div>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}>
+          <div className="step-number">3</div>
+          <div className="step-label">Documents</div>
+        </div>
       </div>
 
-      {/* FORM */}
-      <div style={{ maxWidth: 740, margin: '36px auto 80px', padding: '0 16px' }}>
+      <form onSubmit={handleSubmit} className="enrollment-form">
+        
+        {/* STEP 1: Mobile Verification */}
+        {currentStep === 1 && (
+          <div className="form-section">
+            <h2>Mobile Verification</h2>
+            <p className="section-description">We'll send a verification code to your registered email</p>
+            
+            <div className="form-group">
+              <label htmlFor="mobile">Mobile Number *</label>
+              <div className="input-with-button">
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  placeholder="+919876543210"
+                  required
+                  disabled={otpSent}
+                />
+                <button 
+                  type="button" 
+                  onClick={handleSendOTP}
+                  disabled={loading || otpSent}
+                  className="btn-secondary"
+                >
+                  {loading ? 'Sending...' : otpSent ? 'OTP Sent' : 'Send OTP'}
+                </button>
+              </div>
+              <small>Format: +91XXXXXXXXXX</small>
+            </div>
 
-        {status.msg && (
-          <div style={{ marginBottom: 20, padding: '14px 20px', background: status.type === 'error' ? '#fff5f5' : '#fffbf0', border: `1px solid ${status.type === 'error' ? '#fca5a5' : C.gold}`, color: status.type === 'error' ? C.error : C.navy, fontFamily: sans, fontSize: 14 }}>
-            {status.msg}
+            {otpSent && (
+              <div className="form-group otp-section">
+                <label htmlFor="otp">Enter OTP *</label>
+                <div className="input-with-button">
+                  <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                    placeholder="123456"
+                    maxLength="6"
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    onClick={handleVerifyOTP}
+                    disabled={loading}
+                    className="btn-primary"
+                  >
+                    {loading ? 'Verifying...' : 'Verify OTP'}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
-        {/* 1 — Personal Details */}
-        <Card step="1" title="Personal Details">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 28 }}>
-            <Field label="Full Name" required>
-              <TextInput placeholder="As per PAN card" value={form.full_name} onChange={e => set('full_name', e.target.value)} />
-            </Field>
-            <Field label="Mobile Number" required>
-              <TextInput type="tel" placeholder="+91 98765 43210" value={form.mobile} onChange={e => set('mobile', e.target.value)} maxLength={13} />
-            </Field>
-          </div>
-        </Card>
-
-        {/* 2 — Email Verification */}
-        <Card step="2" title={`Email Verification${otpVerified ? ' ✓' : ''}`}>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 240px' }}>
-              <Field label="Email Address" required>
-                <TextInput type="email" placeholder="you@example.com" value={form.email} onChange={e => set('email', e.target.value)} disabled={otpVerified} />
-              </Field>
-            </div>
-            {!otpVerified && (
-              <button onClick={sendOtp} disabled={loading === 'otp'} style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: loading === 'otp' ? C.border : C.navy, color: C.white, border: 'none', padding: '12px 24px', cursor: 'pointer', transition: 'background 0.2s', whiteSpace: 'nowrap' }}>
-                {loading === 'otp' ? 'Sending…' : otpSent ? 'Resend OTP' : 'Send OTP'}
-              </button>
-            )}
-          </div>
-          {otpSent && !otpVerified && (
-            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap', marginTop: 24 }}>
-              <div style={{ flex: '1 1 180px' }}>
-                <Field label="Enter OTP">
-                  <TextInput type="text" placeholder="6-digit code" value={otp} onChange={e => setOtp(e.target.value)} maxLength={6} style={{ letterSpacing: '0.25em', fontSize: 20 }} />
-                </Field>
-              </div>
-              <button onClick={verifyOtp} disabled={loading === 'verify'} style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: C.gold, color: C.white, border: 'none', padding: '12px 28px', cursor: 'pointer', opacity: loading === 'verify' ? 0.7 : 1 }}>
-                {loading === 'verify' ? 'Verifying…' : 'Verify'}
-              </button>
-            </div>
-          )}
-        </Card>
-
-        {/* 3 — Nominee */}
-        <Card step="3" title="Nominee Information">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 28 }}>
-            <Field label="Nominee Full Name" required>
-              <TextInput placeholder="Nominee's legal name" value={form.nominee_name} onChange={e => set('nominee_name', e.target.value)} />
-            </Field>
-            <Field label="Relationship">
-              <SelectInput value={form.nominee_relationship} onChange={e => set('nominee_relationship', e.target.value)}>
-                <option value="">Select relationship</option>
-                {['Spouse','Father','Mother','Son','Daughter','Brother','Sister','Other'].map(r => <option key={r} value={r}>{r}</option>)}
-              </SelectInput>
-            </Field>
-          </div>
-        </Card>
-
-        {/* 4 — Documents */}
-        <Card step="4" title="KYC Documents">
-          <p style={{ fontFamily: sans, fontSize: 13, color: C.textMuted, marginBottom: 24, lineHeight: 1.7 }}>
-            Upload clear scans or photos · JPG, PNG, PDF · Max 5MB each
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: 14 }}>
-            {DOCS.map(({ key, label, icon, required }) => {
-              const uploaded = !!docs[key];
-              return (
-                <div key={key} onClick={() => fileRefs.current[key]?.click()} style={{ border: `2px dashed ${uploaded ? C.gold : C.border}`, padding: '22px 14px', cursor: 'pointer', textAlign: 'center', background: uploaded ? 'rgba(200,151,58,0.06)' : C.creamLight, transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, minHeight: 120 }}>
-                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" style={{ display: 'none' }} ref={el => fileRefs.current[key] = el} onChange={e => handleFile(key, e.target.files[0])} />
-                  {previews[key]?.startsWith('data:image') ? (
-                    <img src={previews[key]} alt={label} style={{ width: '100%', maxHeight: 52, objectFit: 'cover' }} />
-                  ) : (
-                    <span style={{ fontSize: 26 }}>{uploaded ? '📄' : icon}</span>
-                  )}
-                  <div style={{ fontFamily: sans, fontSize: 12, fontWeight: 600, color: uploaded ? C.gold : C.text, lineHeight: 1.4 }}>
-                    {uploaded ? docs[key].name.slice(0, 22) : label}
-                  </div>
-                  <div style={{ fontFamily: sans, fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', color: uploaded ? C.gold : required ? C.error : C.textMuted }}>
-                    {uploaded ? '✓ UPLOADED' : required ? 'REQUIRED' : 'OPTIONAL'}
-                  </div>
+        {/* STEP 2: Personal & Professional Details */}
+        {currentStep === 2 && (
+          <>
+            <div className="form-section">
+              <h2>Personal Information</h2>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="name">Full Name *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
-              );
-            })}
-          </div>
-        </Card>
 
-        {/* Submit */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, marginTop: 8 }}>
-          <button onClick={() => window.history.back()} style={{ fontFamily: sans, fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'transparent', color: C.textMuted, border: `1px solid ${C.border}`, padding: '12px 24px', cursor: 'pointer' }}>
-            ← Back
-          </button>
-          <button onClick={handleSubmit} disabled={loading === 'submit'} style={{ fontFamily: sans, fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', background: loading === 'submit' ? C.border : C.gold, color: C.white, border: 'none', padding: '15px 44px', cursor: loading === 'submit' ? 'not-allowed' : 'pointer', transition: 'background 0.2s', minWidth: 200 }}>
-            {loading === 'submit' ? 'Submitting…' : 'Submit Enrollment →'}
-          </button>
+                <div className="form-group">
+                  <label htmlFor="email">Email Address *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="nomineeName">Nominee Name *</label>
+                <input
+                  type="text"
+                  id="nomineeName"
+                  name="nomineeName"
+                  value={formData.nomineeName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="form-section professional-background">
+              <h2>Professional Background</h2>
+              <p className="section-description">Help us understand your professional profile</p>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="education">Education *</label>
+                  <select
+                    id="education"
+                    name="education"
+                    value={formData.education}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Education</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="CA">Chartered Accountant (CA)</option>
+                    <option value="CS">Company Secretary (CS)</option>
+                    <option value="Doctorate">Doctorate</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="annualIncome">Annual Income *</label>
+                  <select
+                    id="annualIncome"
+                    name="annualIncome"
+                    value={formData.annualIncome}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Annual Income</option>
+                    <option value="10 Lac - 20 Lac">₹10 Lac - ₹20 Lac</option>
+                    <option value="20 Lac - 40 Lac">₹20 Lac - ₹40 Lac</option>
+                    <option value="40 Lac & Above">₹40 Lac & Above</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="yearsOfExperience">Years of Experience *</label>
+                  <select
+                    id="yearsOfExperience"
+                    name="yearsOfExperience"
+                    value={formData.yearsOfExperience}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Experience</option>
+                    <option value="5 - 10 years">5 - 10 years</option>
+                    <option value="10 - 20 years">10 - 20 years</option>
+                    <option value="20 years & Above">20 years & Above</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button 
+                type="button" 
+                onClick={() => setCurrentStep(3)}
+                className="btn-primary"
+              >
+                Continue to Documents
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* STEP 3: Document Upload */}
+        {currentStep === 3 && (
+          <>
+            <div className="form-section">
+              <h2>KYC Documents</h2>
+              <p className="section-description">Upload clear copies of the following documents (Max 5MB each)</p>
+              
+              <div className="documents-grid">
+                {/* PAN Card */}
+                <div className="document-upload">
+                  <label className="upload-label">
+                    <div className="upload-icon">📄</div>
+                    <div className="upload-text">
+                      <strong>PAN Card</strong>
+                      <span>Click to upload</span>
+                    </div>
+                    {uploadStatus.panCard && <div className="upload-success">✓</div>}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => handleDocumentUpload(e, 'panCard')}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+
+                {/* Aadhar Card */}
+                <div className="document-upload">
+                  <label className="upload-label">
+                    <div className="upload-icon">📄</div>
+                    <div className="upload-text">
+                      <strong>Aadhar Card</strong>
+                      <span>Click to upload</span>
+                    </div>
+                    {uploadStatus.aadharCard && <div className="upload-success">✓</div>}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => handleDocumentUpload(e, 'aadharCard')}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+
+                {/* Cancelled Cheque */}
+                <div className="document-upload">
+                  <label className="upload-label">
+                    <div className="upload-icon">🏦</div>
+                    <div className="upload-text">
+                      <strong>Cancelled Cheque</strong>
+                      <span>Click to upload</span>
+                    </div>
+                    {uploadStatus.cancelledCheque && <div className="upload-success">✓</div>}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => handleDocumentUpload(e, 'cancelledCheque')}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+
+                {/* Nominee Aadhar */}
+                <div className="document-upload">
+                  <label className="upload-label">
+                    <div className="upload-icon">📄</div>
+                    <div className="upload-text">
+                      <strong>Nominee Aadhar</strong>
+                      <span>Click to upload</span>
+                    </div>
+                    {uploadStatus.nomineeAadhar && <div className="upload-success">✓</div>}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => handleDocumentUpload(e, 'nomineeAadhar')}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+
+                {/* Nominee PAN */}
+                <div className="document-upload">
+                  <label className="upload-label">
+                    <div className="upload-icon">📄</div>
+                    <div className="upload-text">
+                      <strong>Nominee PAN</strong>
+                      <span>Click to upload</span>
+                    </div>
+                    {uploadStatus.nomineePan && <div className="upload-success">✓</div>}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => handleDocumentUpload(e, 'nomineePan')}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button 
+                type="button" 
+                onClick={() => setCurrentStep(2)}
+                className="btn-secondary"
+              >
+                Back
+              </button>
+              <button 
+                type="submit"
+                disabled={loading || !Object.values(uploadStatus).every(v => v)}
+                className="btn-primary"
+              >
+                {loading ? 'Submitting...' : 'Submit Enrollment'}
+              </button>
+            </div>
+          </>
+        )}
+      </form>
+
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
         </div>
-
-        <p style={{ fontFamily: sans, textAlign: 'center', color: C.textMuted, fontSize: 11, marginTop: 24, lineHeight: 1.8, letterSpacing: '0.02em' }}>
-          By submitting, you agree to AWA Asset's terms and consent to KYC processing.<br />
-          All data is encrypted and stored securely.
-        </p>
-      </div>
+      )}
     </div>
   );
-}
+};
+
+export default PartnerEnrollment;

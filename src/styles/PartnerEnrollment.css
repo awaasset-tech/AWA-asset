@@ -1,0 +1,486 @@
+/* PartnerEnrollment.css - Vanguard-inspired Professional Design */
+
+:root {
+  --primary-navy: #003B5C;
+  --secondary-gold: #B8860B;
+  --accent-teal: #00677F;
+  --cream: #FAF8F3;
+  --light-gray: #F5F5F5;
+  --medium-gray: #E0E0E0;
+  --dark-gray: #333333;
+  --success-green: #2E7D32;
+  --error-red: #C62828;
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.enrollment-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text-primary);
+  background-color: var(--cream);
+  min-height: 100vh;
+}
+
+/* Header */
+.enrollment-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 3px solid var(--primary-navy);
+}
+
+.enrollment-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.enrollment-header p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Progress Bar */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  padding: 0 40px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--medium-gray);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.progress-step.active .step-number {
+  background-color: var(--primary-navy);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 59, 92, 0.3);
+}
+
+.step-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+}
+
+.progress-step.active .step-label {
+  color: var(--primary-navy);
+  font-weight: 600;
+}
+
+.progress-line {
+  flex: 1;
+  height: 3px;
+  background-color: var(--medium-gray);
+  margin: 0 16px;
+  position: relative;
+  top: -20px;
+}
+
+/* Form Sections */
+.enrollment-form {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.form-section {
+  padding: 40px;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.form-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+.section-description {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0 0 32px 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.professional-background {
+  background-color: var(--light-gray);
+  border-left: 4px solid var(--secondary-gold);
+}
+
+/* Form Elements */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 2px solid var(--medium-gray);
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 0 3px rgba(0, 103, 127, 0.1);
+}
+
+.form-group input:disabled {
+  background-color: var(--light-gray);
+  cursor: not-allowed;
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23333333' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.form-group small {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Input with Button */
+.input-with-button {
+  display: flex;
+  gap: 12px;
+}
+
+.input-with-button input {
+  flex: 1;
+}
+
+/* OTP Section */
+.otp-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid var(--light-gray);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Document Upload Grid */
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.document-upload {
+  position: relative;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  border: 2px dashed var(--medium-gray);
+  border-radius: 8px;
+  background-color: var(--cream);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 180px;
+  position: relative;
+}
+
+.upload-label:hover {
+  border-color: var(--accent-teal);
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.upload-text {
+  text-align: center;
+}
+
+.upload-text strong {
+  display: block;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.upload-text span {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.upload-success {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background-color: var(--success-green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary-navy);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-teal);
+  box-shadow: 0 4px 12px rgba(0, 59, 92, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: var(--medium-gray);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--primary-navy);
+  border: 2px solid var(--primary-navy);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--light-gray);
+}
+
+.btn-secondary:disabled {
+  border-color: var(--medium-gray);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+/* Form Actions */
+.form-actions {
+  padding: 32px 40px;
+  background-color: var(--light-gray);
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  border-top: 1px solid var(--medium-gray);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--light-gray);
+  border-top: 4px solid var(--primary-navy);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .enrollment-container {
+    padding: 24px 16px;
+  }
+
+  .enrollment-header h1 {
+    font-size: 32px;
+  }
+
+  .enrollment-header p {
+    font-size: 16px;
+  }
+
+  .progress-bar {
+    padding: 0 20px;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .step-label {
+    font-size: 12px;
+  }
+
+  .form-section {
+    padding: 24px 20px;
+  }
+
+  .form-section h2 {
+    font-size: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .input-with-button {
+    flex-direction: column;
+  }
+
+  .input-with-button button {
+    width: 100%;
+  }
+
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    padding: 20px;
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .btn-primary,
+  .btn-secondary,
+  .progress-bar,
+  .loading-overlay {
+    display: none;
+  }
+
+  .enrollment-container {
+    background-color: white;
+  }
+
+  .form-section {
+    page-break-inside: avoid;
+  }
+}
