@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PartnerEnrollment.css';
+import '../styles/PartnerEnrollment.css';
 
 const PartnerEnrollment = () => {
   const [currentStep, setCurrentStep] = useState(1);
