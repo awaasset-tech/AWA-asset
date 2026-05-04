@@ -1,95 +1,101 @@
-// config/email.js
-const nodemailer = require('nodemailer');
+// config/email.js - Using Resend API (replaces nodemailer)
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Test email connection
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ Email configuration error:', error.message);
-  } else {
-    console.log('✅ Email server ready');
-  }
-});
+console.log('✅ Resend email service initialized');
 
 // Send OTP email
 const sendOTPEmail = async (mobile, otp) => {
-  const mailOptions = {
-    from: `"${process.env.EMAIL_FROM_NAME}" <${process.env.EMAIL_FROM}>`,
-    to: process.env.EMAIL_USER, // Send to tech@ for now (OTP via email workaround)
+  const { data, error } = await resend.emails.send({
+    from: `AWA Asset Management <noreply@awaasset.com>`,
+    to: [process.env.OTP_RECIPIENT_EMAIL || 'tech@awaasset.com'],
     subject: 'AWA Asset - OTP Verification',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #0d1452;">Partner Enrollment - OTP Verification</h2>
-        <p>Mobile Number: <strong>${mobile}</strong></p>
-        <div style="background-color: #f5b800; padding: 20px; text-align: center; margin: 20px 0;">
-          <h1 style="color: #0d1452; margin: 0; font-size: 36px; letter-spacing: 8px;">${otp}</h1>
+        <div style="background-color: #003B5C; padding: 30px; text-align: center;">
+          <h1 style="color: #B8860B; margin: 0; font-size: 28px;">AWA Asset Management</h1>
         </div>
-        <p>This OTP is valid for ${process.env.OTP_EXPIRY_MINUTES || 10} minutes.</p>
-        <p style="color: #666; font-size: 12px;">If you didn't request this, please ignore this email.</p>
-        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-        <p style="color: #999; font-size: 11px;">AWA Asset Management | awaasset.com</p>
+        
+        <div style="padding: 40px; background-color: #FAF8F3;">
+          <h2 style="color: #003B5C;">Partner Enrollment - OTP Verification</h2>
+          <p style="color: #666;">Mobile Number: <strong>${mobile}</strong></p>
+          
+          <div style="background-color: #003B5C; padding: 30px; text-align: center; margin: 30px 0; border-radius: 8px;">
+            <p style="color: #FAF8F3; margin: 0 0 10px 0; font-size: 14px;">Your One-Time Password</p>
+            <h1 style="color: #B8860B; margin: 0; font-size: 48px; letter-spacing: 12px;">${otp}</h1>
+          </div>
+          
+          <p style="color: #666;">This OTP is valid for <strong>${process.env.OTP_EXPIRY_MINUTES || 10} minutes</strong>.</p>
+          <p style="color: #999; font-size: 13px;">If you didn't request this, please ignore this email.</p>
+        </div>
+        
+        <div style="background-color: #003B5C; padding: 20px; text-align: center;">
+          <p style="color: #999; margin: 0; font-size: 12px;">
+            © ${new Date().getFullYear()} AWA Asset Management | awaasset.com
+          </p>
+        </div>
       </div>
     `
-  };
+  });
 
-  return transporter.sendMail(mailOptions);
+  if (error) {
+    throw new Error(`Resend OTP error: ${error.message}`);
+  }
+
+  return data;
 };
 
 // Send welcome email
 const sendWelcomeEmail = async (email, name, partnerId) => {
-  const mailOptions = {
-    from: `"${process.env.EMAIL_FROM_NAME}" <${process.env.EMAIL_FROM}>`,
-    to: email,
+  const { data, error } = await resend.emails.send({
+    from: `AWA Asset Management <noreply@awaasset.com>`,
+    to: [email],
     subject: 'Welcome to AWA Asset Management',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background-color: #0d1452; padding: 30px; text-align: center;">
-          <h1 style="color: #f5b800; margin: 0;">Welcome to AWA Asset</h1>
+        <div style="background-color: #003B5C; padding: 30px; text-align: center;">
+          <h1 style="color: #B8860B; margin: 0; font-size: 28px;">AWA Asset Management</h1>
         </div>
         
-        <div style="padding: 30px; background-color: #f9f9f9;">
-          <h2 style="color: #0d1452;">Hello ${name}!</h2>
-          <p>Thank you for enrolling as a Distribution Partner with AWA Asset Management.</p>
+        <div style="padding: 40px; background-color: #FAF8F3;">
+          <h2 style="color: #003B5C;">Welcome, ${name}!</h2>
+          <p style="color: #666;">Thank you for enrolling as a Distribution Partner with AWA Asset Management.</p>
           
-          <div style="background-color: white; padding: 20px; border-left: 4px solid #f5b800; margin: 20px 0;">
-            <p style="margin: 0;"><strong>Your Partner ID:</strong></p>
-            <h2 style="color: #0d1452; margin: 10px 0 0 0;">${partnerId}</h2>
+          <div style="background-color: white; padding: 24px; border-left: 4px solid #B8860B; margin: 24px 0; border-radius: 4px;">
+            <p style="margin: 0; color: #666; font-size: 14px;">YOUR PARTNER ID</p>
+            <h2 style="color: #003B5C; margin: 8px 0 0 0; font-size: 32px; letter-spacing: 2px;">${partnerId}</h2>
           </div>
           
-          <p>Your enrollment is currently under review. Our team will verify your documents and approve your account within 2-3 business days.</p>
+          <p style="color: #666;">Your enrollment is currently <strong>under review</strong>. Our team will verify your documents and activate your account within 2-3 business days.</p>
           
-          <p><strong>What's Next?</strong></p>
-          <ul style="color: #666;">
+          <p style="color: #003B5C; font-weight: bold;">What's Next?</p>
+          <ul style="color: #666; line-height: 1.8;">
             <li>Document verification by our team</li>
             <li>Account activation notification</li>
             <li>Access to partner portal</li>
           </ul>
           
-          <p>If you have any questions, feel free to reach out to us.</p>
-          
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #00b050;">
-            <p style="color: #0d1452; font-weight: bold; margin: 0;">Best regards,</p>
-            <p style="color: #0d1452; margin: 5px 0;">AWA Asset Management Team</p>
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #E0E0E0;">
+            <p style="color: #003B5C; font-weight: bold; margin: 0;">Best regards,</p>
+            <p style="color: #003B5C; margin: 5px 0;">AWA Asset Management Team</p>
           </div>
         </div>
         
-        <div style="background-color: #0d1452; padding: 20px; text-align: center;">
+        <div style="background-color: #003B5C; padding: 20px; text-align: center;">
           <p style="color: #999; margin: 0; font-size: 12px;">
-            © ${new Date().getFullYear()} AWA Asset Management. All rights reserved.
+            © ${new Date().getFullYear()} AWA Asset Management | awaasset.com
           </p>
         </div>
       </div>
     `
-  };
+  });
 
-  return transporter.sendMail(mailOptions);
+  if (error) {
+    throw new Error(`Resend welcome email error: ${error.message}`);
+  }
+
+  return data;
 };
 
 module.exports = {
