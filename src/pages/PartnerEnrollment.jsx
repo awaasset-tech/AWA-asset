@@ -253,9 +253,10 @@ const PartnerEnrollment = () => {
 
             {/* Step 1: Verification */}
             <div className="form-group">
-              <label>Email Address *</label>
+              <label htmlFor="email">Email Address *</label>
               <input
                 type="email"
+                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -265,11 +266,28 @@ const PartnerEnrollment = () => {
             </div>
 
             <div className="form-group">
-              <label>Mobile Number *</label>
+              <label htmlFor="mobile">Mobile Number *</label>
               <div className="input-with-button">
-                <input type="tel" name="mobile" ... />
-                <button onClick={handleSendOTP}>Send OTP</button>
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  placeholder="+919876543210"
+                  required
+                  disabled={otpSent}
+                />
+                <button
+                  type="button"
+                  onClick={handleSendOTP}
+                  disabled={loading || otpSent}
+                  className="btn-secondary"
+                >
+                  {loading ? 'Sending...' : otpSent ? '✓ OTP Sent' : 'Send OTP'}
+                </button>
               </div>
+              <small>Format: +91XXXXXXXXXX</small>
             </div>
 
             {otpSent && (
