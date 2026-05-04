@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  DollarSign, PieChart, Users, Smartphone,
+  Shuffle, Calculator, Target, Globe,
+  Package, TrendingUp, BarChart2, Compass,
+  Zap, Landmark, UserCheck
+} from 'lucide-react';
 
 const benefits = [
   {
-    icon: '💸',
+    icon: <DollarSign size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Low Costs',
     desc: 'Our average expense ratio across mutual funds and ETFs is significantly lower than the industry average — keeping more returns in your pocket.',
   },
   {
-    icon: '🥧',
+    icon: <PieChart size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Less Risk Through Diversification',
     desc: 'Mutual fund diversification helps reduce risk by spreading your investment across a range of securities, so underperformance in one area can be offset by better performance in others.',
   },
   {
-    icon: '🤝',
+    icon: <UserCheck size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Professional Management',
     desc: "You don't have to keep track of every security your mutual fund owns. The fund is managed by experts who take care of that for you, so you're free to focus on other things.",
   },
   {
-    icon: '📱',
+    icon: <Smartphone size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Convenience',
     desc: 'You can buy and sell mutual fund shares online and set up recurring investments and withdrawals — all from one place.',
   },
@@ -26,28 +32,28 @@ const benefits = [
 
 const fundTypes = [
   {
-    icon: '🔀',
+    icon: <Shuffle size={52} color="#c8973a" strokeWidth={1} />,
     bg: '#fef3e8',
     title: 'Index Funds',
     desc: 'Enjoy the benefits of diversification, tax efficiency, and low costs with index mutual funds that track a market benchmark.',
     cta: 'Explore index funds',
   },
   {
-    icon: '🧮',
+    icon: <Calculator size={52} color="#c8973a" strokeWidth={1} />,
     bg: '#fdf8ec',
     title: 'Actively Managed Funds',
     desc: 'Our careful selection of talent, paired with a consistent investment approach and client-first focus, sets our actively managed mutual funds apart.',
     cta: 'Explore active funds',
   },
   {
-    icon: '🎯',
+    icon: <Target size={52} color="#c8973a" strokeWidth={1} />,
     bg: '#fef3e8',
     title: 'Target Retirement Funds',
     desc: 'You make just one decision, and the fund managers maintain the target risk and handle rebalancing for you — ideal for long-term goals.',
     cta: 'Explore TRFs',
   },
   {
-    icon: '🌍',
+    icon: <Globe size={52} color="#c8973a" strokeWidth={1} />,
     bg: '#edf7f4',
     title: 'ESG Funds',
     desc: 'Invest in what matters to you. ESG (environmental, social, governance) funds allow you to invest in funds that align with your personal values.',
@@ -88,7 +94,7 @@ export default function MutualFunds() {
         </div>
       </div>
 
-      {/* ── HERO — What's a mutual fund? ── */}
+      {/* ── HERO ── */}
       <section style={{ background: 'linear-gradient(135deg, #0a1628 0%, #1a2f5e 100%)', padding: '72px 40px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
           <div>
@@ -116,12 +122,12 @@ export default function MutualFunds() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
-              { icon: '📦', label: 'Pooled Investments' },
-              { icon: '👨‍💼', label: 'Expert Fund Management' },
-              { icon: '📈', label: 'Long-term Wealth Creation' },
+              { icon: <Package size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Pooled Investments' },
+              { icon: <Users size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Expert Fund Management' },
+              { icon: <TrendingUp size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Long-term Wealth Creation' },
             ].map(item => (
               <div key={item.label} style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(200,151,58,0.3)', borderLeft: '4px solid #c8973a', padding: '18px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontSize: 24 }}>{item.icon}</span>
+                {item.icon}
                 <span style={{ fontSize: 16, fontWeight: 600, color: '#fff' }}>{item.label}</span>
               </div>
             ))}
@@ -144,7 +150,7 @@ export default function MutualFunds() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
             {benefits.map(b => (
               <div key={b.title} style={{ background: '#fff', borderTop: '4px solid #c8973a', padding: '32px 24px' }}>
-                <div style={{ fontSize: 36, marginBottom: 16 }}>{b.icon}</div>
+                <div style={{ marginBottom: 16 }}>{b.icon}</div>
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 17, fontWeight: 700, color: '#0a1628', marginBottom: 12, lineHeight: 1.3 }}>{b.title}</h3>
                 <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.7, margin: 0 }}>{b.desc}</p>
               </div>
@@ -168,7 +174,7 @@ export default function MutualFunds() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
             {fundTypes.map(f => (
               <div key={f.title} style={{ border: '1px solid #e8e2d9', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                <div style={{ background: f.bg, padding: '36px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 52 }}>
+                <div style={{ background: f.bg, padding: '36px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {f.icon}
                 </div>
                 <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -198,7 +204,7 @@ export default function MutualFunds() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
             {[
               {
-                icon: '📊',
+                icon: <BarChart2 size={72} color="#c8973a" strokeWidth={1} />,
                 bg: '#fdf8ec',
                 title: 'Do it yourself',
                 desc: 'Both industry experts and everyday people rely on our low-cost mutual funds and ETFs. Choose from diverse investments to save for your financial goals — on your own terms.',
@@ -206,7 +212,7 @@ export default function MutualFunds() {
                 to: '/open-account',
               },
               {
-                icon: '🧭',
+                icon: <Compass size={72} color="#c8973a" strokeWidth={1} />,
                 bg: '#edf7f4',
                 title: 'Explore professional advice',
                 desc: "Whatever you're working toward, we have a range of services to help you get there. Get a personalized plan and judgment-free guidance to keep you on track.",
@@ -215,7 +221,7 @@ export default function MutualFunds() {
               },
             ].map(item => (
               <div key={item.title} style={{ border: '1px solid #e8e2d9', overflow: 'hidden', background: '#fff' }}>
-                <div style={{ background: item.bg, padding: '48px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 72 }}>
+                <div style={{ background: item.bg, padding: '48px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {item.icon}
                 </div>
                 <div style={{ padding: '32px 28px' }}>
@@ -246,7 +252,6 @@ export default function MutualFunds() {
             </p>
           </div>
 
-          {/* Toggle */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 36 }}>
             <div style={{ display: 'flex', border: '1.5px solid #0a1628', borderRadius: 50, overflow: 'hidden' }}>
               {[{ id: 'etf', label: 'ETFs' }, { id: 'mf', label: 'Mutual Funds' }].map(tab => (
@@ -258,10 +263,9 @@ export default function MutualFunds() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-            {/* ETFs */}
             <div style={{ border: `2px solid ${activeTab === 'etf' ? '#c8973a' : '#e8e2d9'}`, padding: '36px 32px', transition: 'border-color 0.3s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                <span style={{ fontSize: 28 }}>⚡</span>
+                <Zap size={28} color="#c8973a" strokeWidth={1.5} />
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 24, fontWeight: 700, color: '#0a1628', margin: 0 }}>ETFs</h3>
               </div>
               <p style={{ fontSize: 15, color: '#6b7280', lineHeight: 1.7, margin: '0 0 20px' }}>
@@ -279,10 +283,9 @@ export default function MutualFunds() {
               >Explore ETFs →</Link>
             </div>
 
-            {/* Mutual Funds */}
             <div style={{ border: `2px solid ${activeTab === 'mf' ? '#c8973a' : '#e8e2d9'}`, padding: '36px 32px', transition: 'border-color 0.3s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                <span style={{ fontSize: 28 }}>🏦</span>
+                <Landmark size={28} color="#c8973a" strokeWidth={1.5} />
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 24, fontWeight: 700, color: '#0a1628', margin: 0 }}>Mutual Funds</h3>
               </div>
               <p style={{ fontSize: 15, color: '#6b7280', lineHeight: 1.7, margin: '0 0 20px' }}>

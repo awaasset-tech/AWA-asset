@@ -1,19 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  TrendingUp, DollarSign, PieChart,
+  BarChart2, Settings, RefreshCw,
+  Building2, Banknote, Clock,
+  Package, ClipboardList, Cpu,
+  Compass, FolderOpen, CreditCard
+} from 'lucide-react';
 
 const benefits = [
   {
-    icon: '📈',
+    icon: <TrendingUp size={40} color="#c8973a" strokeWidth={1.5} />,
     title: 'Potential for Higher Returns',
     desc: 'Stocks have historically provided higher returns compared to other investment options. Keep in mind that higher reward can come with higher risk.',
   },
   {
-    icon: '💰',
+    icon: <DollarSign size={40} color="#c8973a" strokeWidth={1.5} />,
     title: 'Ownership & Dividends',
     desc: 'When you invest in stocks, you become a partial owner of the company and could receive regular dividend payments.',
   },
   {
-    icon: '🥧',
+    icon: <PieChart size={40} color="#c8973a" strokeWidth={1.5} />,
     title: 'Flexibility',
     desc: 'You can choose from a wide range of stocks that align to your financial goals and personal preferences — across sectors, market caps, and geographies.',
   },
@@ -42,19 +49,19 @@ const stats = [
 
 const strategies = [
   {
-    icon: '📊',
+    icon: <BarChart2 size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Trade on Margin',
     desc: 'Want to borrow the cash or securities you need to complete a trade or short sale? Margin trading lets experienced investors amplify positions.',
     link: 'Learn more about margin accounts',
   },
   {
-    icon: '⚙️',
+    icon: <Settings size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Buy & Sell Options',
     desc: 'Options are complex investments that involve a high degree of risk, so they\'re best suited for experienced investors with a solid understanding of market mechanics.',
     link: 'Learn more about options trading',
   },
   {
-    icon: '🔄',
+    icon: <RefreshCw size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Compound Your Earnings',
     desc: 'A no-fee, no-commission reinvestment program that allows you to reinvest dividends and/or capital gains distributions — letting compounding do the heavy lifting.',
     link: 'Learn more about dividend reinvestment',
@@ -63,19 +70,19 @@ const strategies = [
 
 const learnCards = [
   {
-    icon: '🏢',
+    icon: <Building2 size={64} color="#c8973a" strokeWidth={1} />,
     tag: 'Investing Strategies',
     title: 'IPOs: What to Know',
     desc: 'Educating investors on all things IPO-related — from how to evaluate a new listing to participation strategies.',
   },
   {
-    icon: '📦',
+    icon: <Package size={64} color="#c8973a" strokeWidth={1} />,
     tag: 'Investment Types',
     title: 'What are Equity or Stock Funds?',
     desc: 'Equity mutual funds and ETFs (exchange-traded funds) invest in a diverse mix of stocks for broad market exposure.',
   },
   {
-    icon: '📋',
+    icon: <ClipboardList size={64} color="#c8973a" strokeWidth={1} />,
     tag: 'Education · Online Trading',
     title: 'Stock & ETF Order Types: Understanding Market, Limit...',
     desc: 'To understand when you might want to place a specific order type, check out these examples and explanations.',
@@ -84,7 +91,7 @@ const learnCards = [
 
 const resources = [
   {
-    icon: '🧑‍💻',
+    icon: <Cpu size={60} color="#c8973a" strokeWidth={1} />,
     bg: '#fdf8ec',
     title: 'Investing on your own?',
     desc: 'Check out key information you can use as you begin your DIY investing journey with AWA Asset.',
@@ -92,7 +99,7 @@ const resources = [
     to: '/resources/financial-literacy',
   },
   {
-    icon: '🧭',
+    icon: <Compass size={60} color="#c8973a" strokeWidth={1} />,
     bg: '#edf7f4',
     title: 'Get professional advice',
     desc: 'We offer expert help and personalised guidance. Compare our advice services and find what fits your goals.',
@@ -100,7 +107,7 @@ const resources = [
     to: '/advice/wealth-planning',
   },
   {
-    icon: '🗂️',
+    icon: <FolderOpen size={60} color="#c8973a" strokeWidth={1} />,
     bg: '#f8f5f0',
     title: 'Other investment products',
     desc: 'We have a variety of products to select from — bonds, ETFs, mutual funds, PMS and more. See which best fits your needs.',
@@ -161,12 +168,12 @@ export default function Stocks() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
-              { icon: '🏢', label: 'Part Ownership in Real Companies' },
-              { icon: '💸', label: 'Dividend Income Potential' },
-              { icon: '📊', label: 'Trade Live During Market Hours' },
+              { icon: <Building2 size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Part Ownership in Real Companies' },
+              { icon: <Banknote size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Dividend Income Potential' },
+              { icon: <Clock size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Trade Live During Market Hours' },
             ].map(item => (
               <div key={item.label} style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(200,151,58,0.3)', borderLeft: '4px solid #c8973a', padding: '18px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontSize: 24 }}>{item.icon}</span>
+                {item.icon}
                 <span style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>{item.label}</span>
               </div>
             ))}
@@ -202,7 +209,6 @@ export default function Stocks() {
       {/* ── INVEST IN HUNDREDS WITH ONE ETF ── */}
       <section style={{ background: '#f8f5f0', padding: '80px 40px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
-          {/* Mock portfolio display */}
           <div style={{ position: 'relative' }}>
             <div style={{ background: '#0a1628', borderRadius: 12, padding: '28px', color: '#fff', boxShadow: '0 20px 60px rgba(10,22,40,0.25)' }}>
               <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 4 }}>Portfolio Value</div>
@@ -257,7 +263,7 @@ export default function Stocks() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {benefits.map(b => (
               <div key={b.title} style={{ borderTop: '4px solid #c8973a', background: '#f8f5f0', padding: '36px 28px' }}>
-                <div style={{ fontSize: 40, marginBottom: 20 }}>{b.icon}</div>
+                <div style={{ marginBottom: 20 }}>{b.icon}</div>
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 700, color: '#0a1628', marginBottom: 12 }}>{b.title}</h3>
                 <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.7, margin: 0 }}>{b.desc}</p>
               </div>
@@ -298,14 +304,14 @@ export default function Stocks() {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: 200, height: 200, background: 'linear-gradient(135deg, #c8973a 0%, #0a1628 100%)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, boxShadow: '0 0 60px rgba(200,151,58,0.3)' }}>
-              💳
+            <div style={{ width: 200, height: 200, background: 'linear-gradient(135deg, #c8973a 0%, #0a1628 100%)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 60px rgba(200,151,58,0.3)' }}>
+              <CreditCard size={80} color="#fff" strokeWidth={1} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STRATEGIES FOR EXPERIENCED INVESTORS ── */}
+      {/* ── STRATEGIES ── */}
       <section style={{ background: '#edf7f4', padding: '80px 40px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -320,7 +326,7 @@ export default function Stocks() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {strategies.map(s => (
               <div key={s.title} style={{ background: '#fff', borderTop: '4px solid #0a1628', padding: '32px 28px' }}>
-                <div style={{ fontSize: 36, marginBottom: 16 }}>{s.icon}</div>
+                <div style={{ marginBottom: 16 }}>{s.icon}</div>
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 18, fontWeight: 700, color: '#0a1628', marginBottom: 10, lineHeight: 1.3 }}>{s.title}</h3>
                 <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.65, margin: '0 0 16px' }}>{s.desc}</p>
                 <Link to="/open-account" style={{ fontSize: 13, fontWeight: 700, color: '#c8973a', textDecoration: 'none' }}
@@ -348,7 +354,7 @@ export default function Stocks() {
                 onMouseEnter={e => e.currentTarget.style.boxShadow = '0 8px 32px rgba(10,22,40,0.10)'}
                 onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
               >
-                <div style={{ background: '#f8f5f0', height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 64 }}>
+                <div style={{ background: '#f8f5f0', height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {c.icon}
                 </div>
                 <div style={{ padding: '24px' }}>
@@ -378,7 +384,7 @@ export default function Stocks() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {resources.map(r => (
               <div key={r.title} style={{ border: '1px solid #e8e2d9', overflow: 'hidden', background: '#fff' }}>
-                <div style={{ background: r.bg, padding: '48px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60 }}>
+                <div style={{ background: r.bg, padding: '48px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {r.icon}
                 </div>
                 <div style={{ padding: '28px 24px' }}>

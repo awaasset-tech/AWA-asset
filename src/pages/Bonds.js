@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  TrendingUp, PieChart, Scale, Receipt,
+  DollarSign, Shield, Calendar, Mail
+} from 'lucide-react';
 
 const benefits = [
   {
-    icon: '📈',
+    icon: <TrendingUp size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Income Stability',
     desc: 'Bonds pay regular interest, giving you a steady stream of income over time. Having an additional source of income can be especially helpful in retirement.',
   },
   {
-    icon: '🥧',
+    icon: <PieChart size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Portfolio Diversification',
     desc: 'Getting broad exposure to bonds and other asset types can help balance your portfolio and reduce your overall risk.',
   },
   {
-    icon: '⚖️',
+    icon: <Scale size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Risk Mitigation',
     desc: 'Investing in bonds can offset the risk of stocks. Bond rates and stock prices typically move in opposite directions — having bonds can balance the risks of stocks in your portfolio.',
   },
   {
-    icon: '🧾',
+    icon: <Receipt size={36} color="#c8973a" strokeWidth={1.5} />,
     title: 'Tax Advantages',
     desc: 'Some bonds offer tax-free income. Depending on the issuer, bonds can generate federal and state tax-exempt earnings.',
   },
@@ -93,12 +97,12 @@ export default function Bonds() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
-              { label: 'Fixed Income', icon: '💰' },
-              { label: 'Capital Preservation', icon: '🛡️' },
-              { label: 'Regular Coupon Payments', icon: '📅' },
+              { icon: <DollarSign size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Fixed Income' },
+              { icon: <Shield size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Capital Preservation' },
+              { icon: <Calendar size={22} color="#c8973a" strokeWidth={1.5} />, label: 'Regular Coupon Payments' },
             ].map(item => (
               <div key={item.label} style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(200,151,58,0.3)', borderLeft: '4px solid #c8973a', padding: '18px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontSize: 24 }}>{item.icon}</span>
+                {item.icon}
                 <span style={{ fontSize: 16, fontWeight: 600, color: '#fff' }}>{item.label}</span>
               </div>
             ))}
@@ -120,7 +124,7 @@ export default function Bonds() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
             {benefits.map(b => (
               <div key={b.title} style={{ background: '#fff', borderTop: '4px solid #c8973a', padding: '32px 24px' }}>
-                <div style={{ fontSize: 36, marginBottom: 16 }}>{b.icon}</div>
+                <div style={{ marginBottom: 16 }}>{b.icon}</div>
                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 18, fontWeight: 700, color: '#0a1628', marginBottom: 12 }}>{b.title}</h3>
                 <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.7, margin: 0 }}>{b.desc}</p>
               </div>
@@ -193,7 +197,7 @@ export default function Bonds() {
         </div>
       </section>
 
-      {/* ── STAY IN THE KNOW (newsletter) ── */}
+      {/* ── STAY IN THE KNOW ── */}
       <section style={{ background: '#fef3e8', padding: '72px 40px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr auto', gap: 60, alignItems: 'center' }}>
           <div>
@@ -226,7 +230,7 @@ export default function Bonds() {
             )}
           </div>
           <div style={{ width: 160, height: 160, background: 'linear-gradient(135deg, #c8973a, #0a1628)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ fontSize: 60 }}>📬</span>
+            <Mail size={60} color="#fff" strokeWidth={1} />
           </div>
         </div>
       </section>
