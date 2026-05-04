@@ -3,6 +3,7 @@ import '../styles/PartnerEnrollment.css';
 
 const PartnerEnrollment = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [partnerId, setPartnerId] = useState('');
   const [formData, setFormData] = useState({
     // Personal Details
     name: '',
@@ -192,9 +193,8 @@ const PartnerEnrollment = () => {
       const result = await response.json();
       
       if (result.success) {
-        alert(`Success! Your Partner ID: ${result.data.partnerId}\n\nWelcome email sent to ${result.data.email}`);
-        // Reset form or redirect
-        window.location.href = '/';
+        setPartnerId(result.data.partnerId);
+        setCurrentStep(4); // Success step
       } else {
         alert(result.error);
       }
@@ -522,6 +522,30 @@ const PartnerEnrollment = () => {
             </div>
           </>
         )}
+
+        {/* STEP 4: Success screen */}
+        {currentStep === 4 && (
+          <div className="success-screen">
+            <div className="success-icon">✅</div>
+            <h2>Enrollment Successful!</h2>
+            <p>Welcome to AWA Asset Management</p>
+            
+            <div className="partner-id-box">
+              <p>YOUR PARTNER ID</p>
+              <h1>{partnerId}</h1>
+            </div>
+            
+            <p>A welcome email has been sent to your registered email address.</p>
+            <p>Our team will verify your documents within <strong>2-3 business days.</strong></p>
+            
+            <button 
+              onClick={() => window.location.href = '/'}
+              className="btn-primary"
+            >
+              Go to Homepage
+            </button>
+          </div>
+        )}        
       </form>
 
       {loading && (
