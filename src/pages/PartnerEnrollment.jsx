@@ -194,7 +194,7 @@ const PartnerEnrollment = () => {
       if (result.success) {
         alert(`Success! Your Partner ID: ${result.data.partnerId}\n\nWelcome email sent to ${result.data.email}`);
         // Reset form or redirect
-        window.location.href = '/success';
+        window.location.href = '/';
       } else {
         alert(result.error);
       }
