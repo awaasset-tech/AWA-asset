@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Users, Landmark, Handshake,
+  Target, Sparkles,
+  Shield, GraduationCap, TrendingUp,
+  Rocket, Flag
+} from 'lucide-react';
 
-/* ---- Animated counter ---- */
+/* ---- StatPill ---- */
 function StatPill({ value, label, icon }) {
   return (
     <div style={{
@@ -11,7 +17,7 @@ function StatPill({ value, label, icon }) {
       padding: '28px 24px',
       textAlign: 'center',
     }}>
-      <div style={{ fontSize: 28, marginBottom: 8 }}>{icon}</div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>{icon}</div>
       <div style={{
         fontFamily: 'Playfair Display, serif',
         fontSize: '2rem',
@@ -48,7 +54,6 @@ function MessageCard({ icon, audience, title, body, accentColor, to }) {
         background: `${accentColor}15`,
         borderRadius: 12,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 24,
         marginBottom: 20,
       }}>{icon}</div>
 
@@ -104,103 +109,33 @@ function GrowthItem({ number, icon, headline, desc }) {
       }}
     >
       <div style={{
-        flexShrink: 0,
-        width: 52, height: 52,
+        width: 48, height: 48,
         background: hovered ? '#0a1628' : '#f8f5f0',
-        border: `2px solid ${hovered ? '#c8973a' : '#ddd8d0'}`,
         borderRadius: 12,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 22,
-        transition: 'all 0.25s',
-      }}>{icon}</div>
+        flexShrink: 0,
+        transition: 'background 0.2s',
+      }}>{icon(hovered)}</div>
       <div>
         <div style={{
-          fontSize: 11, fontWeight: 700,
-          letterSpacing: '1px', textTransform: 'uppercase',
-          color: '#c8973a', marginBottom: 6,
-        }}>Step {number}</div>
-        <h4 style={{
           fontFamily: 'Playfair Display, serif',
-          fontSize: '1.1rem',
+          fontSize: '1.15rem',
           color: '#0a1628',
           marginBottom: 8,
-        }}>{headline}</h4>
-        <p style={{ color: '#6b7280', fontSize: 14, lineHeight: 1.7 }}>{desc}</p>
+          fontWeight: 600,
+        }}>{headline}</div>
+        <p style={{ color: '#6b7280', fontSize: 14, lineHeight: 1.7, margin: 0 }}>{desc}</p>
       </div>
     </div>
   );
 }
 
+/* ============================== */
 export default function AboutPage() {
   return (
     <main>
 
-      {/* ── HERO ── */}
-      <section style={{
-        background: 'linear-gradient(135deg, #0a1628 0%, #112240 55%, #1d3461 100%)',
-        padding: '88px 32px 72px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        {/* decorative rings */}
-        <div style={{
-          position: 'absolute', right: -80, top: -80,
-          width: 420, height: 420, borderRadius: '50%',
-          border: '1px solid rgba(229,181,90,0.12)', pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', right: 60, top: 60,
-          width: 260, height: 260, borderRadius: '50%',
-          border: '1px solid rgba(229,181,90,0.08)', pointerEvents: 'none',
-        }} />
-
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <p style={{
-            fontSize: 12, fontWeight: 700,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            color: '#e5b55a', marginBottom: 16,
-          }}>About AWA Asset</p>
-
-          <h1 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            color: '#fff',
-            maxWidth: 620,
-            lineHeight: 1.2,
-            marginBottom: 20,
-          }}>
-            India's Leading<br />
-            <span style={{ color: '#e5b55a' }}>Multi-Asset Firm</span>
-          </h1>
-
-          <p style={{
-            color: '#9aaec4',
-            fontSize: 16,
-            lineHeight: 1.7,
-            maxWidth: 520,
-            marginBottom: 36,
-          }}>
-            We educate, guide, and empower our clients toward financial stability —
-            for this generation and all the generations to come.
-          </p>
-
-          <Link to="/open-account" style={{
-            background: '#c8973a', color: '#fff',
-            padding: '13px 30px', borderRadius: 4,
-            fontFamily: 'DM Sans, sans-serif',
-            fontWeight: 700, fontSize: 15,
-            textDecoration: 'none', display: 'inline-block',
-            transition: 'background 0.2s',
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = '#e5b55a'}
-            onMouseLeave={e => e.currentTarget.style.background = '#c8973a'}
-          >
-            Start your journey →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── MISSION & VISION ── */}
+      {/* MISSION & VISION */}
       <section style={{ padding: '80px 0', background: '#fff' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -230,9 +165,9 @@ export default function AboutPage() {
                 width: 160, height: 160, borderRadius: '50%',
                 background: 'rgba(229,181,90,0.07)',
               }} />
-              <div style={{
-                fontSize: 36, marginBottom: 20,
-              }}>🎯</div>
+              <div style={{ marginBottom: 20 }}>
+                <Target size={36} color="#c8973a" strokeWidth={1.5} />
+              </div>
               <div style={{
                 fontSize: 11, fontWeight: 700,
                 letterSpacing: '1.5px', textTransform: 'uppercase',
@@ -272,7 +207,9 @@ export default function AboutPage() {
                 width: 160, height: 160, borderRadius: '50%',
                 background: 'rgba(200,151,58,0.07)',
               }} />
-              <div style={{ fontSize: 36, marginBottom: 20 }}>🌟</div>
+              <div style={{ marginBottom: 20 }}>
+                <Flag size={36} color="#c8973a" strokeWidth={1.5} />
+              </div>
               <div style={{
                 fontSize: 11, fontWeight: 700,
                 letterSpacing: '1.5px', textTransform: 'uppercase',
@@ -300,7 +237,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── MESSAGES — CLIENTS & PARTNERS ── */}
+      {/* MESSAGES — CLIENTS & PARTNERS */}
       <section style={{ padding: '80px 0', background: '#f3f0eb' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 52 }}>
@@ -322,7 +259,7 @@ export default function AboutPage() {
 
           <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
             <MessageCard
-              icon="🤝"
+              icon={<Handshake size={24} color="#c8973a" strokeWidth={1.5} />}
               audience="Message to our Clients"
               title="Your satisfaction is our sharp focus"
               body="We take pride in our focus on customer satisfaction. Our job is to educate you, find the right solution for your specific situation, and become your trusted guide for every financial decision. We focus on your needs and affordability — always."
@@ -330,7 +267,7 @@ export default function AboutPage() {
               to="/open-account"
             />
             <MessageCard
-              icon="🚀"
+              icon={<Rocket size={24} color="#1d6b8a" strokeWidth={1.5} />}
               audience="Message to our Partners"
               title="We grind side by side with you"
               body="We are here to help you achieve your goals and train you to become the best financial planner you can be. We work shoulder to shoulder with you to give our clients the best possible products within our Customer First environment."
@@ -341,7 +278,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── GROWTH STRATEGY ── */}
+      {/* GROWTH STRATEGY */}
       <section style={{ padding: '80px 0', background: '#fff' }}>
         <div className="container">
           <div style={{
@@ -350,7 +287,6 @@ export default function AboutPage() {
             gap: 64,
             alignItems: 'start',
           }}>
-            {/* Left — headline */}
             <div style={{ position: 'sticky', top: 100 }}>
               <p style={{
                 fontSize: 12, fontWeight: 700,
@@ -394,23 +330,22 @@ export default function AboutPage() {
               </Link>
             </div>
 
-            {/* Right — steps */}
             <div>
               <GrowthItem
                 number="1"
-                icon="🛡️"
+                icon={(hovered) => <Shield size={22} color={hovered ? '#c8973a' : '#0a1628'} strokeWidth={1.5} />}
                 headline="We secure your life"
                 desc="So that you can live happily with ease and grace — without the anxiety of financial uncertainty hanging over you or your family."
               />
               <GrowthItem
                 number="2"
-                icon="🎓"
+                icon={(hovered) => <GraduationCap size={22} color={hovered ? '#c8973a' : '#0a1628'} strokeWidth={1.5} />}
                 headline="We give you the right solution"
                 desc="Creating sustainability so you can give your children the best education, retire early, and save confidently for the future."
               />
               <GrowthItem
                 number="3"
-                icon="📈"
+                icon={(hovered) => <TrendingUp size={22} color={hovered ? '#c8973a' : '#0a1628'} strokeWidth={1.5} />}
                 headline="We help you upgrade your lifestyle"
                 desc="So you can scale up, gain back your time and money, and finally do the things you've always wanted to do — on your terms."
               />
@@ -419,7 +354,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── STATS STRIP ── */}
+      {/* STATS STRIP */}
       <section style={{
         padding: '72px 0',
         background: 'linear-gradient(135deg, #0a1628 0%, #112240 50%, #1d3461 100%)',
@@ -439,15 +374,15 @@ export default function AboutPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
             gap: 20,
           }}>
-            <StatPill icon="👨‍👩‍👧‍👦" value="10,000+" label="families guided toward financial freedom" />
-            <StatPill icon="🏦" value="Multi-Asset" label="expertise across equity, debt, insurance & more" />
-            <StatPill icon="🤝" label="partner advisors trained and empowered" value="500+" />
-            <StatPill icon="🇮🇳" value="#1" label="focus: financial education in our community" />
+            <StatPill icon={<Users size={28} color="#e5b55a" strokeWidth={1.5} />} value="10,000+" label="families guided toward financial freedom" />
+            <StatPill icon={<Landmark size={28} color="#e5b55a" strokeWidth={1.5} />} value="Multi-Asset" label="expertise across equity, debt, insurance & more" />
+            <StatPill icon={<Handshake size={28} color="#e5b55a" strokeWidth={1.5} />} value="500+" label="partner advisors trained and empowered" />
+            <StatPill icon={<TrendingUp size={28} color="#e5b55a" strokeWidth={1.5} />} value="#1" label="focus: financial education in our community" />
           </div>
         </div>
       </section>
 
-      {/* ── FINAL CTA ── */}
+      {/* FINAL CTA */}
       <section style={{
         padding: '72px 32px',
         background: '#f8f5f0',
