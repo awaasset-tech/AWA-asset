@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PartnerEnrollment.css';
+import '../styles/PartnerEnrollment.css';
 
 // Document configuration - single source of truth
 const DOCUMENTS = [
