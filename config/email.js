@@ -6,10 +6,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 console.log('✅ Resend email service initialized');
 
 // Send OTP email
-const sendOTPEmail = async (mobile, otp) => {
+const sendOTPEmail = async (email, mobile, otp) => {
   const { data, error } = await resend.emails.send({
     from: `AWA Asset Management <noreply@awaasset.com>`,
-    to: [process.env.OTP_RECIPIENT_EMAIL || 'tech@awaasset.com'],
+    to: [email],
     subject: 'AWA Asset - OTP Verification',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

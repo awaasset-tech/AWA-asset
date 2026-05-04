@@ -19,7 +19,11 @@ const validateMobile = [
   body('mobile')
     .trim()
     .matches(/^\+91[6-9]\d{9}$/)
-    .withMessage('Invalid Indian mobile number. Format: +91XXXXXXXXXX'),
+    .withMessage('Invalid Indian mobile number'),
+  body('email')
+    .trim()
+    .isEmail()
+    .withMessage('Invalid email address'),
   handleValidationErrors
 ];
 

@@ -6,9 +6,9 @@ const { sendOTPEmail } = require('../config/email');
 // Send OTP
 const sendOTP = async (req, res) => {
   try {
-    const { mobile } = req.body;
-    
-    // Check if mobile is already registered
+    const { mobile, email } = req.body;  // ← add email
+
+    // Check if mobile already registered
     const exists = await partnerModel.mobileExists(mobile);
     if (exists) {
       return res.status(409).json({
@@ -16,22 +16,17 @@ const sendOTP = async (req, res) => {
         error: 'Mobile number already registered'
       });
     }
-    
-    // Generate OTP
+
     const otp = otpModel.generateOTP();
-    
-    // Save to database
     await otpModel.saveOTP(mobile, otp);
-    
-    // Send OTP via email (email-based OTP workaround until WhatsApp is set up)
-    await sendOTPEmail(mobile, otp);
-    
+    await sendOTPEmail(email, mobile, otp);  // ← pass email, mobile, otp
+
     res.json({
       success: true,
-      message: 'OTP sent successfully to registered email',
+      message: 'OTP sent successfully to your email',
       expiresIn: `${process.env.OTP_EXPIRY_MINUTES || 10} minutes`
     });
-    
+
   } catch (error) {
     console.error('Send OTP error:', error);
     res.status(500).json({

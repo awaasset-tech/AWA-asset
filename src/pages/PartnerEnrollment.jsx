@@ -55,16 +55,25 @@ const PartnerEnrollment = () => {
   // Send OTP
   const handleSendOTP = async () => {
     if (!formData.mobile.match(/^\+91[6-9]\d{9}$/)) {
-      alert('Please enter a valid mobile number (e.g., +919876543210)');
+      alert('Please enter a valid mobile number');
       return;
     }
+    if (!formData.email) {
+      alert('Please enter your email address first');
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch('/api/otp/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mobile: formData.mobile })
+        body: JSON.stringify({ 
+          mobile: formData.mobile,
+          email: formData.email    // ← add this
+        })
       });
+      // rest stays same...
       const result = await response.json();
       if (result.success) {
         setOtpSent(true);
@@ -242,29 +251,25 @@ const PartnerEnrollment = () => {
             <h2>Mobile Verification</h2>
             <p className="section-description">We'll send a verification code to your registered email</p>
 
+            {/* Step 1: Verification */}
             <div className="form-group">
-              <label htmlFor="mobile">Mobile Number *</label>
+              <label>Email Address *</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Mobile Number *</label>
               <div className="input-with-button">
-                <input
-                  type="tel"
-                  id="mobile"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleChange}
-                  placeholder="+919876543210"
-                  required
-                  disabled={otpSent}
-                />
-                <button
-                  type="button"
-                  onClick={handleSendOTP}
-                  disabled={loading || otpSent}
-                  className="btn-secondary"
-                >
-                  {loading ? 'Sending...' : otpSent ? '✓ OTP Sent' : 'Send OTP'}
-                </button>
+                <input type="tel" name="mobile" ... />
+                <button onClick={handleSendOTP}>Send OTP</button>
               </div>
-              <small>Format: +91XXXXXXXXXX</small>
             </div>
 
             {otpSent && (
