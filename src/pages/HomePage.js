@@ -96,6 +96,7 @@ function ResourceCard({ icon, title, desc, cta, to }) {
       </div>
     </div>
   );
+}
 
 /* ============================== */
 export default function HomePage() {
