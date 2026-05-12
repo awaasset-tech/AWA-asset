@@ -669,17 +669,22 @@ const PartnerEnrollment = () => {
                   <input
                     type="checkbox"
                     checked={termsAccepted}
-                    onChange={e => setTermsAccepted(e.target.checked)}
+                    onChange={e => {
+                      if (e.target.checked) {
+                        setShowTerms(true);  // open modal when checkbox clicked
+                      } else {
+                        setTermsAccepted(false);
+                      }
+                    }}
                   />
                   <span>
-                    I agree to the{' '}
+                    I have read and agree to the{' '}
                     <button type="button" className="terms-link" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>
                       Terms & Conditions
                     </button>
                   </span>
                 </label>
               </div>
-            </div>
 
             <div className="form-actions">
               <button type="button" onClick={() => { setCurrentStep(2); window.scrollTo(0, 0); }} className="btn-secondary">Back</button>
