@@ -137,7 +137,7 @@ const PartnerEnrollment = () => {
       const response = await fetch('/api/otp/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email, mobile: '+919000000000' })
+        body: JSON.stringify({ email: formData.email })
       });
       const result = await response.json();
       if (result.success) {
