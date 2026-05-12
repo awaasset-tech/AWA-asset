@@ -70,7 +70,6 @@ const PartnerEnrollment = () => {
     city: '',
     pinCode: '',
     marriageAnniversary: '',
-    category: '',
     // Step 2 - Tax / Entity
     entityType: '',
     panNo: '',
@@ -297,7 +296,7 @@ const PartnerEnrollment = () => {
         <>
           <div className="enrollment-header">
             <h1>Partner Enrollment</h1>
-            <p>Join AWA Asset Management's Privileged Partner Program</p>
+            <p>Join AWA Asset - Privileged Partner Program</p>
           </div>
           <div className="progress-bar">
             {STEPS.map((label, i) => (
@@ -373,14 +372,6 @@ const PartnerEnrollment = () => {
                 <div className="form-group">
                   <label>Marriage Anniversary</label>
                   <input type="date" name="marriageAnniversary" value={formData.marriageAnniversary} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label>Category *</label>
-                  <select name="category" value={formData.category} onChange={handleChange} required>
-                    <option value="">Select</option>
-                    <option value="Mentor">Mentor</option>
-                    <option value="Privilege Partner">Privilege Partner</option>
-                  </select>
                 </div>
               </div>
               <div className="form-group">
@@ -654,7 +645,6 @@ const PartnerEnrollment = () => {
                   <div className="review-row"><span>Email</span><strong>{formData.email}</strong></div>
                   <div className="review-row"><span>Mobile</span><strong>{formData.mobile}</strong></div>
                   <div className="review-row"><span>Date of Birth</span><strong>{formData.dateOfBirth}</strong></div>
-                  <div className="review-row"><span>Category</span><strong>{formData.category}</strong></div>
                   <div className="review-row"><span>Address</span><strong>{formData.address}, {formData.city} – {formData.pinCode}</strong></div>
                 </div>
                 <div className="review-block">
