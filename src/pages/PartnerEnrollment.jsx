@@ -13,39 +13,83 @@ const TERMS_TEXT = `This AGREEMENT is made at Mumbai on this __ day of __ by and
 
 The expressions "AWA Asset" and "The Partner" shall unless repugnant to the context or meaning thereof mean and include their respective legal successors and permitted assigns. ["AWA Asset" and "The Partner" shall together be referred to as "parties" and individually as "Party"]
 
+Whereas, AWA Asset is into the business of distributing various investment products viz. Mutual Funds, Fixed Deposits, Bonds, PMS, real estate and other financial products and services to provide a holistic platform to existing and prospective clients.
+
+And whereas, The Partner has agreed to distribute various products provided by AWA Asset and AWA Asset has agreed to allow the Partner to distribute various products on behalf of AWA Asset as mutually decided from time to time, subject to the terms and conditions hereunder recorded.
+
+NOW THIS AGREEMENT IS AGREED AS UNDER
+
 ARTICLE 1: DEFINITION
+
 • "Partner" shall mean and include any individual/entity who has agreed to avail the services offered by AWA Asset and is eligible to be duly appointed as a Distribution Manager of AWA Asset for such service(s).
 • "Client(s)" shall mean individuals/entities making investments through the Partner in various products.
 • "Portal" shall mean the website hosted by AWA Asset through which the partner accesses the Partner desk and other online facilities.
+• "Partner Desk" shall mean the areas in the portal to which the partner gets access by virtue of login ID and Password.
 • "Products" shall mean investment products viz. Mutual Funds, Fixed Deposits, Bonds, PMS, and other financial products offered by AWA Asset to Partners from time to time.
 • "Services" shall mean the activities connected with the distribution/sale of the products.
+• "Transaction(s)" means all transactions, including but not limited to any purchase, redemption/sale or switch/transfer, made in any of the products offered through AWA Asset, in any mode, either directly or indirectly, by the client of the partner at any point of time.
 
-ARTICLE 2: ELIGIBILITY AND APPOINTMENT
+ARTICLE 2: GENERAL INTERPRETATION
+
+• In this agreement, the headings are used for convenience and ease of reference only.
+• In this agreement, unless the context specifies otherwise, reference to singular includes the plural and vice versa.
+• If there are any contrary provisions in the agreement and any subsequent Addendum, the provisions of the Addendum shall prevail over the agreement.
+
+ARTICLE 3: ELIGIBILITY AND APPOINTMENT
+
 • Any individual or entity seeking appointment as a Partner shall be qualified as per relevant laws, regulations and rules to carry out the business of distribution of the products offered by AWA Asset. Such eligibility will include (but not be limited to) passing the NISM Series V-A: Mutual Fund Distributors Certification Exam as required by any regulatory body in India.
 • The Partner shall provide information and details which AWA Asset requires at the time of application as well as from time to time during the tenure of this Agreement.
 • Upon acceptance of the Partner, AWA Asset shall issue to the Partner an appointment letter mentioning the Partner's code and other terms and conditions.
 • AWA Asset grants the partner a non-transferable, revocable and non-exclusive licence to use the Portal and other online facilities for bonafide purposes only.
-• The relation between the Partner and AWA Asset shall be on a principal-to-principal basis.
+• The relation between the Partner and AWA Asset shall be on a principal-to-principal basis. The partner shall have no right whatsoever to bind or act on behalf of AWA Asset to any action, contract or understanding with any third party.
+• The partner by virtue of this agreement is eligible to earn commissions on business mobilised as communicated by AWA Asset from time to time.
 
-ARTICLE 3: RIGHTS AND OBLIGATIONS OF PARTNER
-• The Partner shall maintain all information of their clients required for the conduct of business.
+ARTICLE 4: RIGHTS AND OBLIGATIONS OF PARTNER
+
+• The Partner has a right to use and/or access the AWA Asset Portal and other websites as provided by AWA Asset and updated/revised from time to time.
+• The Partner shall maintain all information of their clients required for the conduct of business and shall make available any such information to AWA Asset upon request.
 • The Partner specifically ensures that any person involved in selling and/or advising of mutual funds through the partner code is duly authorized and has the necessary AMFI certification.
-• The Partner shall secure an ARN Number and shall renew such ARN at appropriate times and shall intimate the status of such ARN to AWA Asset.
-• The Partner shall be solely responsible for the protection and privacy of the user id and password of the Partner Desk.
-• The Partner shall be solely responsible for adhering to KYC (Know Your Customer) and AML (Anti Money Laundering) norms under PMLA regulations.
+• The Partner shall secure an ARN Number and shall renew such ARN at appropriate times and shall intimate the status of such ARN to AWA Asset. Upon non-renewal of the ARN, the partner shall lose the commissions including trail commission for the business done in the past and AWA Asset cannot be held liable for the same.
+• The Partner shall be solely responsible for the protection and privacy of the user ID and password of the Partner Desk.
+• The Partner shall be solely responsible for adhering to KYC (Know Your Customer) and AML (Anti Money Laundering) norms under PMLA regulations. In case of any non-compliance, AWA Asset cannot be held responsible.
 
-ARTICLE 4: RIGHTS AND OBLIGATIONS OF AWA ASSET
-• AWA Asset reserves the right to reject any application for enrolling as a Partner at its sole discretion at any time.
+ARTICLE 5: RIGHTS AND OBLIGATIONS OF AWA ASSET
+
+• AWA Asset reserves the right to reject any application for enrolling as a Partner at its sole discretion at any time without giving any reason.
 • AWA Asset retains the sole right and discretion to change, amend or modify the rules, regulations, and eligibility criteria.
 • AWA Asset rightfully performs maintenance and development work on all portals and partner desks.
+• Without limiting other remedies, AWA Asset may issue a warning, temporarily suspend, indefinitely suspend or terminate Partner registration if: (i) the Partner commits breach of any terms of this agreement; (ii) AWA Asset is unable to verify or authenticate any information the partner provides; or (iii) AWA Asset has reason to believe that the partner's actions may cause legal liability.
+• AWA Asset retains sole right and discretion to vary the terms of this agreement and issue an addendum.
 
-ARTICLE 5: COMMISSION AND PAYMENTS
-• The Partner shall be eligible to earn commissions on business mobilised as communicated by AWA Asset from time to time.
-• Commission structures are subject to change at AWA Asset's discretion with reasonable notice.
-• Trail commissions are subject to continued ARN validity and compliance.
+ARTICLE 6: FEES AND COMMISSION
+
+• The Partner shall be entitled to receive commission on the business generated under its code subject to the rate/incentive structure as decided and communicated by AWA Asset from time to time.
+• All commission rates payable to the partner shall be inclusive of any taxes, charges, and deductions payable at prevailing rates.
+• The commission shall only be paid subject to the partner's fulfillment of necessary statutory, regulatory and/or legal obligations.
+• AWA Asset reserves the right to terminate the status as partner under the agreement at any point of time.
+• Upon expiry/termination of the partner's appointment, the partner shall be entitled to no other amounts or commission from AWA Asset except commissions rightfully due prior to such expiry or termination.
+
+ARTICLE 7: CONFIDENTIALITY
+
+• The parties agree to treat as confidential all information in the nature of intellectual property, supplied or received, and shall not divulge or disclose the same to any third party.
+• The partner agrees to use all confidential information only in connection with the purpose of fulfilling its obligations as per this agreement.
+• The partner shall keep access to the portal, Partner Desk and AWA Asset websites only for authorised individuals.
+
+ARTICLE 8: GOVERNING LAW
+
+All transactions done by the partner/customer through AWA Asset premises and/or portals/online websites shall be governed by and construed in accordance with the laws of India. Any litigation regarding this agreement shall be filed only in the competent courts of Mumbai and the partner hereby agrees and submits to the jurisdiction of such courts.
+
+ARTICLE 9: INDEMNIFICATION
+
+The partner hereby undertakes and agrees that it will at all times defend and indemnify AWA Asset, its successors, directors and affiliates from and against all actions, suits, claims and demands arising on account of the partner's actions, errors, misrepresentations, or non-compliance with applicable laws and regulations.
+
+ARTICLE 10: FORCE MAJEURE
+
+In the event of an act of government, war, fire, flood, act of god, power shortage, failure of internet, or other causes beyond reasonable control of a party that prevent the party from performing in accordance with the terms of this agreement, such non-performance shall be excused for so long as such conditions prevail, provided the affected party provides the other party with written notice of the force majeure event.
 
 DECLARATION
-I/We hereby declare that the information furnished is true and correct to the best of my/our knowledge and belief. I/We undertake to abide by the terms and conditions stated herein and the changes in Terms & Conditions from time to time relating to the empanelment as a Distribution Manager. I/We am/are not an employee or a relative of a Director/employee of AWA Asset Management or any of its associates.`;
+
+I/We hereby declare that the information furnished is true and correct to the best of my/our knowledge and belief. I/We undertake to abide by the terms and conditions stated herein and any changes in Terms & Conditions from time to time relating to the empanelment as a Distribution Manager with AWA Asset Management. I/We am/are not an employee or a relative of a Director/employee of AWA Asset Management or any of its associates.`;
 
 const PartnerEnrollment = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -57,11 +101,9 @@ const PartnerEnrollment = () => {
   const [otpSent, setOtpSent] = useState(false);
 
   const [formData, setFormData] = useState({
-    // Step 1
     email: '',
     otp: '',
     emailVerified: false,
-    // Step 2 - Personal
     salutation: '',
     name: '',
     mobile: '',
@@ -70,21 +112,17 @@ const PartnerEnrollment = () => {
     city: '',
     pinCode: '',
     marriageAnniversary: '',
-    // Step 2 - Tax / Entity
     entityType: '',
     panNo: '',
-    // Step 2 - ARN
     arnNo: '',
     arnIssueDate: '',
     arnValidUpto: '',
-    // Step 2 - Bank
     accountNo: '',
     bankName: '',
     bankBranch: '',
     ifscCode: '',
     micrCode: '',
     accountType: '',
-    // Step 2 - Nominee
     nomineeName: '',
     nomineeAddress: '',
     nomineeRelationship: '',
@@ -92,18 +130,15 @@ const PartnerEnrollment = () => {
     nomineeDob: '',
     guardianName: '',
     guardianAddress: '',
-    // Step 2 - Experience
     experienceLand: false,
     experienceFD: false,
     experienceInsurance: false,
     experienceMF: false,
     experienceBonds: false,
     experiencePPF: false,
-    // Step 2 - Professional
     education: '',
     annualIncome: '',
     yearsOfExperience: '',
-    // Step 3 - Documents
     documents: {
       panCard: '',
       aadharCard: '',
@@ -168,6 +203,7 @@ const PartnerEnrollment = () => {
       if (result.success && result.verified) {
         setFormData(prev => ({ ...prev, emailVerified: true }));
         setCurrentStep(2);
+        window.scrollTo(0, 0);
       } else {
         alert(result.error || 'Invalid OTP. Please try again.');
       }
@@ -233,6 +269,7 @@ const PartnerEnrollment = () => {
         setPartnerId(result.data.partnerId);
         setPartnerEmail(result.data.email);
         setCurrentStep(5);
+        window.scrollTo(0, 0);
       } else {
         alert(result.error);
       }
@@ -259,24 +296,22 @@ const PartnerEnrollment = () => {
             </div>
             <div className="modal-body">
               {TERMS_TEXT.split('\n').map((line, i) => (
-                <p key={i} style={{ marginBottom: line === '' ? '12px' : '4px', fontWeight: line.startsWith('ARTICLE') || line === 'DECLARATION' ? '700' : '400', color: line.startsWith('ARTICLE') || line === 'DECLARATION' ? '#0d1452' : '#444' }}>
+                <p key={i} style={{
+                  marginBottom: line === '' ? '12px' : '4px',
+                  fontWeight: line.startsWith('ARTICLE') || line === 'DECLARATION' || line.startsWith('NOW THIS') ? '700' : '400',
+                  color: line.startsWith('ARTICLE') || line === 'DECLARATION' || line.startsWith('NOW THIS') ? '#0d1452' : '#444'
+                }}>
                   {line}
                 </p>
               ))}
             </div>
             <div className="modal-footer">
               <label className="terms-checkbox">
-                <input
-                  type="checkbox"
-                  checked={termsAccepted}
-                  onChange={e => setTermsAccepted(e.target.checked)}
-                />
+                <input type="checkbox" checked={termsAccepted} onChange={e => setTermsAccepted(e.target.checked)} />
                 <span>I have read and agree to the Terms & Conditions</span>
               </label>
               <div className="modal-actions">
-                <button type="button" className="btn-secondary" onClick={() => setShowTerms(false)}>
-                  Close
-                </button>
+                <button type="button" className="btn-secondary" onClick={() => setShowTerms(false)}>Close</button>
                 <button
                   type="button"
                   className="btn-primary"
@@ -314,7 +349,7 @@ const PartnerEnrollment = () => {
 
       <form onSubmit={handleSubmit} className="enrollment-form">
 
-        {/* ── STEP 1: Email Verification ── */}
+        {/* ── STEP 1: Email Verification only ── */}
         {currentStep === 1 && (
           <div className="form-section">
             <h2>Email Verification</h2>
@@ -362,6 +397,11 @@ const PartnerEnrollment = () => {
                 <div className="form-group">
                   <label>Full Name *</label>
                   <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Mobile Number *</label>
+                  <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="+919876543210" required />
+                  <small>Format: +91XXXXXXXXXX</small>
                 </div>
               </div>
               <div className="form-row">
@@ -573,7 +613,7 @@ const PartnerEnrollment = () => {
             </div>
 
             <div className="form-actions">
-              <button type="button" onClick={() => setCurrentStep(3)} className="btn-primary">
+              <button type="button" onClick={() => { setCurrentStep(3); window.scrollTo(0, 0); }} className="btn-primary">
                 Continue to Documents
               </button>
             </div>
@@ -614,6 +654,7 @@ const PartnerEnrollment = () => {
                   );
                 })}
               </div>
+
               <div className="upload-progress">
                 <span>{Object.values(uploadStatus).filter(s => s.uploaded).length} of 5 documents uploaded</span>
                 <div className="progress-track">
@@ -621,10 +662,28 @@ const PartnerEnrollment = () => {
                     style={{ width: `${(Object.values(uploadStatus).filter(s => s.uploaded).length / 5) * 100}%` }} />
                 </div>
               </div>
+
+              {/* T&C checkbox BELOW documents */}
+              <div className="terms-section">
+                <label className="terms-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={termsAccepted}
+                    onChange={e => setTermsAccepted(e.target.checked)}
+                  />
+                  <span>
+                    I agree to the{' '}
+                    <button type="button" className="terms-link" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>
+                      Terms & Conditions
+                    </button>
+                  </span>
+                </label>
+              </div>
             </div>
+
             <div className="form-actions">
-              <button type="button" onClick={() => setCurrentStep(2)} className="btn-secondary">Back</button>
-              <button type="button" onClick={() => setCurrentStep(4)} disabled={!allDocsUploaded} className="btn-primary">
+              <button type="button" onClick={() => { setCurrentStep(2); window.scrollTo(0, 0); }} className="btn-secondary">Back</button>
+              <button type="button" onClick={() => { setCurrentStep(4); window.scrollTo(0, 0); }} disabled={!allDocsUploaded || !termsAccepted} className="btn-primary">
                 Review & Submit
               </button>
             </div>
@@ -637,7 +696,6 @@ const PartnerEnrollment = () => {
             <div className="form-section">
               <h2>Review Your Application</h2>
               <p className="section-description">Please verify your details before submitting</p>
-
               <div className="review-grid">
                 <div className="review-block">
                   <h3>Personal Details</h3>
@@ -679,18 +737,10 @@ const PartnerEnrollment = () => {
                 </div>
               </div>
             </div>
-
-            <div className="terms-notice">
-              By submitting, you agree to AWA Asset Management's{' '}
-              <button type="button" className="terms-link" onClick={() => setShowTerms(true)}>
-                Terms & Conditions
-              </button>
-            </div>
-
             <div className="form-actions">
-              <button type="button" onClick={() => setCurrentStep(3)} className="btn-secondary">Back</button>
-              <button type="button" onClick={() => setShowTerms(true)} disabled={loading} className="btn-primary">
-                {loading ? 'Submitting...' : 'Read T&C & Submit'}
+              <button type="button" onClick={() => { setCurrentStep(3); window.scrollTo(0, 0); }} className="btn-secondary">Back</button>
+              <button type="submit" disabled={loading} className="btn-primary">
+                {loading ? 'Submitting...' : 'Submit Enrollment'}
               </button>
             </div>
           </>
