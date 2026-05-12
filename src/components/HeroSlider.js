@@ -167,23 +167,6 @@ export default function HeroSlider() {
             >
               {slide.cta2}
             </Link>
-            <a href="/partner-enrollment" style={{
-              background: 'transparent',
-              color: '#c8973a',
-              padding: '12px 26px',
-              borderRadius: 4,
-              fontFamily: 'DM Sans, sans-serif',
-              fontWeight: 600,
-              fontSize: 15,
-              border: '1.5px solid #c8973a',
-              transition: 'all 0.2s',
-              textDecoration: 'none',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#c8973a'; e.currentTarget.style.color = '#fff'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#c8973a'; }}
-            >
-              Add Partner
-            </a>
           </div>
         </div>
       </div>
