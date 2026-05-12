@@ -52,29 +52,6 @@ function GoalCard({ icon, title, desc, cta, to }) {
 }
 
 /* ---- Product chip ---- */
-function ProductChip({ label, to }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <Link to={to}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'inline-block',
-        background: hovered ? '#0a1628' : '#fff',
-        color: hovered ? '#fff' : '#0a1628',
-        border: '1.5px solid #0a1628',
-        borderRadius: 4,
-        padding: '9px 20px',
-        fontFamily: 'DM Sans, sans-serif',
-        fontWeight: 600,
-        fontSize: 14,
-        textDecoration: 'none',
-        transition: 'all 0.2s ease',
-      }}>
-      {label}
-    </Link>
-  );
-}
 
 /* ---- Resource card ---- */
 function ResourceCard({ icon, title, desc, cta, to }) {
@@ -119,24 +96,6 @@ function ResourceCard({ icon, title, desc, cta, to }) {
       </div>
     </div>
   );
-}
-
-/* ---- Stat ---- */
-function Stat({ value, label }) {
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{
-        fontFamily: 'Playfair Display, serif',
-        fontSize: '2.8rem',
-        fontWeight: 700,
-        color: '#e5b55a',
-        lineHeight: 1,
-        marginBottom: 8,
-      }}>{value}</div>
-      <div style={{ color: '#9aaec4', fontSize: 14, maxWidth: 200 }}>{label}</div>
-    </div>
-  );
-}
 
 /* ============================== */
 export default function HomePage() {
