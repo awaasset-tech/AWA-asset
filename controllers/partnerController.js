@@ -9,7 +9,7 @@ const enrollPartner = async (req, res) => {
     const { name, mobile, email, nomineeName, documents } = req.body;
     
     // Check if mobile was verified
-    const isVerified = await otpModel.isMobileVerified(mobile);
+    const isVerified = await otpModel.isEmailVerified(mobile);
     if (!isVerified) {
       return res.status(400).json({
         success: false,
