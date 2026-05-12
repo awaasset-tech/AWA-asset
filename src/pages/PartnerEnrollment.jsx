@@ -364,11 +364,6 @@ const PartnerEnrollment = () => {
                   <label>Full Name *</label>
                   <input type="text" name="name" value={formData.name} onChange={handleChange} required />
                 </div>
-                <div className="form-group">
-                  <label>Mobile Number *</label>
-                  <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="+919876543210" required />
-                  <small>Format: +91XXXXXXXXXX</small>
-                </div>
               </div>
               <div className="form-row">
                 <div className="form-group">
