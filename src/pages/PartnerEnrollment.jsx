@@ -54,12 +54,8 @@ const PartnerEnrollment = () => {
 
   // Send OTP
   const handleSendOTP = async () => {
-    if (!formData.mobile.match(/^\+91[6-9]\d{9}$/)) {
-      alert('Please enter a valid mobile number');
-      return;
-    }
-    if (!formData.email) {
-      alert('Please enter your email address first');
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      alert('Please enter a valid email address');
       return;
     }
 
@@ -77,7 +73,7 @@ const PartnerEnrollment = () => {
       const result = await response.json();
       if (result.success) {
         setOtpSent(true);
-        alert('OTP sent! Check your registered email.');
+        alert(`OTP sent to ${formData.email}. Please check your inbox.`);
       } else {
         alert(result.error);
       }
@@ -245,24 +241,36 @@ const PartnerEnrollment = () => {
 
       <form onSubmit={handleSubmit} className="enrollment-form">
 
-        {/* ── STEP 1: Mobile Verification ── */}
+        {/* ── STEP 1: Email Verification ── */}
         {currentStep === 1 && (
           <div className="form-section">
-            <h2>Mobile Verification</h2>
-            <p className="section-description">We'll send a verification code to your registered email</p>
+            <h2>Email Verification</h2>
+            <p className="section-description">We'll send a verification code to your email address</p>
 
             {/* Step 1: Verification */}
             <div className="form-group">
               <label htmlFor="email">Email Address *</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                required
-              />
+              <div className="input-with-button">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  required
+                  disabled={otpSent}
+                />
+                <button
+                  type="button"
+                  onClick={handleSendOTP}
+                  disabled={loading || otpSent}
+                  className="btn-secondary"
+                >
+                  {loading ? 'Sending...' : otpSent ? '✓ OTP Sent' : 'Send OTP'}
+                </button>
+              </div>
+              <small>A 6-digit OTP will be sent to this email</small>
             </div>
 
             <div className="form-group">
@@ -276,16 +284,7 @@ const PartnerEnrollment = () => {
                   onChange={handleChange}
                   placeholder="+919876543210"
                   required
-                  disabled={otpSent}
                 />
-                <button
-                  type="button"
-                  onClick={handleSendOTP}
-                  disabled={loading || otpSent}
-                  className="btn-secondary"
-                >
-                  {loading ? 'Sending...' : otpSent ? '✓ OTP Sent' : 'Send OTP'}
-                </button>
               </div>
               <small>Format: +91XXXXXXXXXX</small>
             </div>
