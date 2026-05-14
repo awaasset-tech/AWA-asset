@@ -46,10 +46,6 @@ const validateEnrollment = [
     .isLength({ min: 2, max: 100 })
     .withMessage('Name must be between 2-100 characters'),
 
-  body('mobile')
-    .trim()
-    .matches(/^\+91[6-9]\d{9}$/)
-    .withMessage('Invalid Indian mobile number'),
 
   body('email')
     .trim()
