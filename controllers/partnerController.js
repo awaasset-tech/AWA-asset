@@ -8,13 +8,7 @@ const enrollPartner = async (req, res) => {
   try {
     const { name, mobile, email, nomineeName, documents } = req.body;
     
-    // Check if mobile was verified
-    const isVerified = await otpModel.isEmailVerified(email);
-    if (!isVerified) {
-      return res.status(400).json({
         success: false,
-        error: 'Email not verified. Please verify OTP first.'
-      });
     }
     
     // Check if mobile already exists
