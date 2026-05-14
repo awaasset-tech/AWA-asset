@@ -43,7 +43,7 @@ const validateEnrollment = [
     .trim()
     .notEmpty()
     .withMessage('Name is required')
-    .isLength({ min: 2, max: 100 })
+    .isLength({ min: 1, max: 100 })
     .withMessage('Name must be between 2-100 characters'),
 
 
@@ -57,7 +57,7 @@ const validateEnrollment = [
     .trim()
     .notEmpty()
     .withMessage('Nominee name is required')
-    .isLength({ min: 2, max: 100 })
+    .isLength({ min: 1, max: 100 })
     .withMessage('Nominee name must be between 2-100 characters'),
 
   body('documents')
