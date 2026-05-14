@@ -25,15 +25,7 @@ const enrollPartner = async (req, res) => {
         error: 'Email already registered'
       });
     }
-    
-    // Check if email already exists
-    const emailExists = await partnerModel.emailExists(email);
-    if (emailExists) {
-      return res.status(409).json({
-        success: false,
-        error: 'Email address already registered'
-      });
-    }
+
     
     // Create partner
     const partner = await partnerModel.createPartner({
