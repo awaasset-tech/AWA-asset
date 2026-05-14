@@ -7,11 +7,8 @@ const { sendWelcomeEmail } = require('../config/email');
 const enrollPartner = async (req, res) => {
   try {
     const { name, mobile, email, nomineeName, documents } = req.body;
-    
-        success: false,
-    }
-    
-    // Check if mobile already exists
+
+    // Check if email already registered
     const emailExists = await partnerModel.emailExists(email);
     if (emailExists) {
       return res.status(409).json({
@@ -20,7 +17,6 @@ const enrollPartner = async (req, res) => {
       });
     }
 
-    
     // Create partner
     const partner = await partnerModel.createPartner({
       name,
@@ -29,7 +25,7 @@ const enrollPartner = async (req, res) => {
       nomineeName,
       documents
     });
-    
+
     // Send welcome email
     try {
       await sendWelcomeEmail(email, name, partner.partner_id);
@@ -37,7 +33,7 @@ const enrollPartner = async (req, res) => {
       console.error('Welcome email error:', emailError);
       // Don't fail enrollment if email fails
     }
-    
+
     res.status(201).json({
       success: true,
       message: 'Enrollment successful! Welcome email sent.',
@@ -48,7 +44,7 @@ const enrollPartner = async (req, res) => {
         status: partner.status
       }
     });
-    
+
   } catch (error) {
     console.error('Enrollment error:', error);
     res.status(500).json({
@@ -62,21 +58,21 @@ const enrollPartner = async (req, res) => {
 const getPartnerStatus = async (req, res) => {
   try {
     const { partnerId } = req.params;
-    
+
     const partner = await partnerModel.getPartnerById(partnerId);
-    
+
     if (!partner) {
       return res.status(404).json({
         success: false,
         error: 'Partner not found'
       });
     }
-    
+
     res.json({
       success: true,
       data: partner
     });
-    
+
   } catch (error) {
     console.error('Get partner error:', error);
     res.status(500).json({
